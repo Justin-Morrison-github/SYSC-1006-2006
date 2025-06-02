@@ -1,0 +1,291 @@
+{
+    "lectures": [
+        {
+            "slug": "lecture1",
+            "title": "Lecture 1",
+            "topics": [
+                {
+                    "slug": "hello-world",
+                    "title": "Hello World"
+                },
+                {
+                    "slug": "intro-to-c",
+                    "title": "Intro to C"
+                }
+            ]
+        },
+        {
+            "slug": "lecture2",
+            "title": "Lecture 2",
+            "topics": [
+                {
+                    "slug": "data-types",
+                    "title": "Data Types"
+                },
+                {
+                    "slug": "variables",
+                    "title": "Variables"
+                },
+                {
+                    "slug": "expressions",
+                    "title": "Expressions"
+                }
+            ]
+        },
+        {
+            "slug": "lecture3",
+            "title": "Lecture 3",
+            "topics": [
+                {
+                    "slug": "control-flow",
+                    "title": "Control Flow"
+                },
+                {
+                    "slug": "conditionals",
+                    "title": "Conditionals"
+                },
+                {
+                    "slug": "loops",
+                    "title": "Loops"
+                }
+            ]
+        },
+        {
+            "slug": "lecture4",
+            "title": "Lecture 4",
+            "topics": [
+                {
+                    "slug": "functions",
+                    "title": "Functions"
+                },
+                {
+                    "slug": "recursive-functions",
+                    "title": "Recursive Functions"
+                }
+            ]
+        },
+        {
+            "slug": "lecture5",
+            "title": "Lecture 5",
+            "topics": [
+                {
+                    "slug": "code-organization",
+                    "title": "Code Organization"
+                },
+                {
+                    "slug": "compilation",
+                    "title": "Compilation"
+                }
+            ]
+        },
+        {
+            "slug": "lecture6",
+            "title": "Lecture 6",
+            "topics": [
+                {
+                    "slug": "arrays",
+                    "title": "Arrays"
+                }
+            ]
+        },
+        {
+            "slug": "lecture7",
+            "title": "Lecture 7",
+            "topics": [
+                {
+                    "slug": "pointers",
+                    "title": "Pointers"
+                },
+                {
+                    "slug": "pointers-and-functions",
+                    "title": "Pointers and Functions"
+                }
+            ]
+        },
+        {
+            "slug": "lecture8",
+            "title": "Lecture 8",
+            "topics": [
+                {
+                    "slug": "pointers-and-arrays",
+                    "title": "Pointers and Arrays"
+                },
+                {
+                    "slug": "functions-and-arrays",
+                    "title": "Functions and Arrays"
+                }
+            ]
+        },
+        {
+            "slug": "lecture9",
+            "title": "Lecture 9",
+            "topics": [
+                {
+                    "slug": "structs",
+                    "title": "Structs"
+                }
+            ]
+        },
+        {
+            "slug": "lecture10",
+            "title": "Lecture 10",
+            "topics": [
+                {
+                    "slug": "structs-and-pointers",
+                    "title": "Structs and Pointers"
+                },
+                {
+                    "slug": "structs-and-functions",
+                    "title": "Structs and Functions"
+                },
+                {
+                    "slug": "pointers-to-structs-and-functions",
+                    "title": "Pointers to Structs and Functions"
+                }
+            ]
+        },
+        {
+            "slug": "lecture11",
+            "title": "Lecture 11",
+            "topics": [
+                {
+                    "slug": "strings",
+                    "title": "Strings"
+                },
+                {
+                    "slug": "string-operations",
+                    "title": "String Operations"
+                }
+            ]
+        },
+        {
+            "slug": "lecture12",
+            "title": "Lecture 12",
+            "topics": [
+                {
+                    "slug": "printing",
+                    "title": "Printing"
+                },
+                {
+                    "slug": "getting-user-input",
+                    "title": "Getting User Input"
+                }
+            ]
+        },
+        {
+            "slug": "lecture13",
+            "title": "Lecture 13",
+            "topics": [
+                {
+                    "slug": "midterm-review",
+                    "title": "Midterm Review"
+                }
+            ]
+        },
+        {
+            "slug": "lecture14",
+            "title": "Lecture 14",
+            "topics": [
+                {
+                    "slug": "memory-allocation",
+                    "title": "Memory Allocation"
+                }
+            ]
+        },
+        {
+            "slug": "lecture15",
+            "title": "Lecture 15",
+            "topics": [
+                {
+                    "slug": "linked-lists-1",
+                    "title": "Linked Lists 1"
+                }
+            ]
+        },
+        {
+            "slug": "lecture16",
+            "title": "Lecture 16",
+            "topics": [
+                {
+                    "slug": "linked-lists-2",
+                    "title": "Linked Lists 2"
+                }
+            ]
+        },
+        {
+            "slug": "lecture17",
+            "title": "Lecture 17",
+            "topics": [
+                {
+                    "slug": "linked-lists-3",
+                    "title": "Linked Lists 3"
+                }
+            ]
+        },
+        {
+            "slug": "lecture18",
+            "title": "Lecture 18",
+            "topics": [
+                {
+                    "slug": "stacks",
+                    "title": "Stacks"
+                }
+            ]
+        },
+        {
+            "slug": "lecture19",
+            "title": "Lecture 19",
+            "topics": [
+                {
+                    "slug": "queues-1",
+                    "title": "Queues 1"
+                }
+            ]
+        },
+        {
+            "slug": "lecture20",
+            "title": "Lecture 20",
+            "topics": [
+                {
+                    "slug": "queues-2",
+                    "title": "Queues 2"
+                },
+                {
+                    "slug": "circulat-linked-lists",
+                    "title": "Circular Linked Lists"
+                }
+            ]
+        },
+        {
+            "slug": "lecture21",
+            "title": "Lecture 21",
+            "topics": [
+                {
+                    "slug": "hash-tables-1",
+                    "title": "Hash Tables 1"
+                }
+            ]
+        },
+        {
+            "slug": "lecture22",
+            "title": "Lecture 22",
+            "topics": [
+                {
+                    "slug": "hash-tables-2",
+                    "title": "Hash Tables 2"
+                }
+            ]
+        },
+        {
+            "slug": "lecture23-24",
+            "title": "Lecture 23/24",
+            "topics": [
+                {
+                    "slug": "final-exam-review",
+                    "title": "Final Exam Review"
+                }
+            ]
+        }
+    ],
+    "exercises": []
+}
