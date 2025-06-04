@@ -12,6 +12,8 @@ export default function MarkdownPage({ type = 'lectures' }) {
 
         if (type === 'exercises') {
             path = `/content/exercises/${slug}.md`
+        } else if (type === 'overview') {
+            path = `/content/overview.md`
         } else {
             path = `/content/lectures/${lectureSlug}/${topicSlug}.md`
         }
