@@ -95,9 +95,9 @@ export default function MarkdownRenderer({ content }) {
                     dropquiz: ({ children, ...props }) => (
                         <DropQuiz {...props}>{children}</DropQuiz>
                     ),
-                    warning: ({ children }) => {
+                    warning: ({ children, title }) => {
                         return (
-                            <PopUp icon={AlertIcon} color={COLORS.warning} title="Warning">
+                            <PopUp icon={AlertIcon} color={COLORS.warning} title={title || "Warning"}>
                                 {children}
                             </PopUp>
                         )
@@ -109,9 +109,9 @@ export default function MarkdownRenderer({ content }) {
                             </PopUp>
                         )
                     },
-                    definition: ({ children }) => {
+                    definition: ({ children, ...props }) => {
                         return (
-                            <PopUp icon={SearchIcon} color={COLORS.definition} title="Definition">
+                            <PopUp icon={SearchIcon} color={COLORS.definition} {...props}>
                                 {children}
                             </PopUp>
                         )
