@@ -86,6 +86,12 @@ export default function MarkdownRenderer({ content }) {
                     strong: ({ children }) => (
                         <strong className="text-blue-400 font-bold">{children}</strong>
                     ),
+                    // strong: ({ children, color = "blue-400" }) => (
+                    //     <strong className={`text-${color} font-bold`}>{children}</strong>
+                    // ),
+                    // em: ({ children }) => (
+                    //     <strong className="text-blue-400 font-bold">{children}</strong>
+                    // ),
                     ccoderunner: ({ node, ...props }) => {
                         return <CCodeRunner {...props} />;
                     },
