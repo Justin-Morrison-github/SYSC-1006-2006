@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuIcon, XIcon } from 'lucide-react'; // install lucide-react or use heroicons
 
+const headerColor = "#030712"
+
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
     // const [open, setOpen] = useState(false);
     const [manifest, setManifest] = useState({ lectures: [], exercises: [] });
@@ -28,7 +30,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     Name of Thing
                 </div>
             </div> */}
-            <div className="fixed top-0 left-0 w-full h-12 bg-blue-500 flex items-center px-4 z-50 shadow-md">
+            <div className="fixed top-0 left-0 w-full h-12  flex items-center px-4 z-50 shadow-md"
+                style={{ backgroundColor: headerColor }}>
                 {/* Sidebar Toggle Button */}
                 <button
                     className="text-white p-2 mr-4"
@@ -46,6 +49,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <h2 className="text-xl font-bold mb-4">Navigation</h2>
                 <ul className="space-y-2">
                     <li><Link to="/" onClick={() => setSidebarOpen(false)}>Home</Link></li>
+                    <li><Link to="/overview" onClick={() => setSidebarOpen(false)}>Course Overview</Link></li>
                     {/* Add more global links here */}
                 </ul>
                 <h2 className="text-xl font-bold mt-8 mb-4">Lectures</h2>
