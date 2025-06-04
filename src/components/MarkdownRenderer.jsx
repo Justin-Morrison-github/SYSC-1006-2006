@@ -60,7 +60,7 @@ const COLORS = {
 
 export default function MarkdownRenderer({ content }) {
     return (
-        <div className="prose-invert markdown-body w-full max-w-none p-4 pb-6">
+        <div className="prose prose-invert markdown-body w-full max-w-none p-4 pb-6">
             <ReactMarkdown
                 rehypePlugins={[rehypeRaw]}
                 remarkPlugins={[remarkGfm]}

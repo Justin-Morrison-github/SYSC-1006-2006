@@ -10,7 +10,7 @@ export default function PopUp({ color, icon, title, children, fontSize, ...props
                 {
                     Icon ? <Icon size={16} /> : null
                 }
-                <strong>{title}</strong>
+                <strong style={{ color: color }}>{title}</strong>
             </div>
 
             {children}
