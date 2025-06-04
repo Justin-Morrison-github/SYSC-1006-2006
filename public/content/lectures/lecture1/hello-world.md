@@ -2,7 +2,7 @@
 
 Most of you probably know what a hello world program is by now. It is the commonly the first program that anyone writes in a new language. It simply prints the string "Hello World!" to the console. This is what a Hello World program looks like in C. I am assuming that you have already taken a course in Python and understand the basics of programming in Python (types, functions, function parameter/arguments, imports)
 
-```C
+```c
 #include <stdio.h>
 
 int main(int argc, char* const argv){
