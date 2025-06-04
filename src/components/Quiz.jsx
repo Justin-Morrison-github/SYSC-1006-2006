@@ -106,7 +106,7 @@ export default function Quiz({ question, options, correct, children, title, hint
 
                 {selected !== null && (
                     <div className="py-2 mt-1">
-                        {isCorrect ? '✅' : '❌'} {options[selected]}
+                        {isCorrect ? '✅' : '❌'} {options[selected] || "Incorrect"}
                     </div>
                 )}
             </div>
