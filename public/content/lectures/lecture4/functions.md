@@ -38,7 +38,7 @@ A common issue programmers often run into is that you have some logic in your co
 </exercise> -->
 
 
-
+<!-- 
 <warning>
     </div>
         Make sure that....
@@ -51,11 +51,11 @@ A common issue programmers often run into is that you have some logic in your co
     </div>
 </info>
 
-<definition>
+<definition title="Definition">
     <div>
         The defintion of...
     </div>
-</definition>
+</definition> -->
 
 
 <DropQuiz title="Quiz" question="Which of loops is *not* supported by C" options="{for:'Incorrect', while:'Incorrect', foreach:'Correct', 'do while':'Incorrect'}" correct="foreach" hint="Does C let you loop over a list like python (for x in ___)?">
