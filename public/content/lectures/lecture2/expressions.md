@@ -1,10 +1,13 @@
-# Expressions
+<title>Expressions</title>
 
-> An expression is any line of code that produces a value. 
+<definition title="Expression">
+An expression is any line of code that produces a value. 
+</definition>
+
+<!-- > An expression is any line of code that produces a value.  -->
 
 An expression is made of operands and operators. Those operators can be mathematical (+, -, /, *), logical (&&, ||, !), or any mix of both. Expresions are typically used to assign the result of operations to a varible or to use that result as a condition in a control flow statement (if, for, while, etc).
 
-[quiz question="What is 2 + 2?" options="{3:'Too low', 4:'Correct! 2 + 2 = 4', 5:'Too high'}" correct="4"]
 
 ---
 We will go through each of the main types of C operators.
@@ -104,3 +107,60 @@ For anything you do in class this is not something to worry about. But if you ar
 | AND       | &&     |
 | OR        | \|\|   |
 | NOT       | !      |
+
+
+
+
+
+
+## Exercises
+<exercise title="Exercise Set 2">
+<Quiz title="2.1" question="Is this valid C code?" options="{True:'No, there are no semicolons', False:'Correct!'}" correct="False">
+
+```c
+int x = 5
+printf("%d\n", x)
+```
+
+</Quiz>
+
+<Quiz title="2.1" question="What is the output of this C code?" options="{True:'No, there are no semicolons', False:'Correct!'}" correct="False">
+
+```c
+int x = 5;
+printf("%d\n", x / 2);
+```
+
+</Quiz>
+
+
+<Quiz title="2.1" question="What is the output of this C code?" options="{'3':'Correct', '2':'', '3.0':'Almost, but both operands are ints, so the result is an int, not a floating point number', '4':''}" correct="3">
+
+```c
+int x = 6;
+printf("%d\n", x / 2);
+```
+
+</Quiz>
+
+
+<Quiz title="2.1" question="What is the output of this C code?" options="{'3':'Now one of the operands is a floating, so the result is also a floating point number', '2':'', '3.0':'Correct', '4':''}" correct="3.0">
+
+```c
+float x = 6;
+printf("%d\n", x / 2);
+```
+
+</Quiz>
+
+<Quiz title="2.1" question="What is x?"  correct="4" options='{"4.9": "x is int, it can\'t have a decimal part", "5": "When converting from a floating point to an int, values are not rounded, they are truncated.", "4.0": "Right magnitude, but ints can not have a decimal part.", "4": "Correct"}'>
+
+```c
+int x = 4.5 + 0.4;
+```
+
+</Quiz>
+
+<Quiz title="2.1.6" question="Which of loops is *not* supported by C" options="{for:'Incorrect', while:'Incorrect', foreach:'Correct', 'do while':'Incorrect'}" correct="foreach" hint="Does C let you loop over a list like python (for x in ___)?">
+</Quiz>
+</exercise>
