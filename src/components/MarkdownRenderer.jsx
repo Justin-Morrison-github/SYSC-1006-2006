@@ -1,19 +1,23 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import Quiz from './Quiz';
-import DropQuiz from './DropQuiz';
-import FillInTheBlank from './FillInTheBlank';
-import CCodeRunner from "./CCodeRunner"; // adjust the path as needed
-import Exercise from "./Exercise"
-import CodeBox from "./CodeBox"
-
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import oneDark from 'react-syntax-highlighter/dist/esm/styles/prism/one-dark';
+import { AlertIcon, InfoIcon, SearchIcon } from '@primer/octicons-react';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
 
-import { AlertIcon, InfoIcon, SearchIcon } from '@primer/octicons-react';
+// Custom Components
+import Quiz from './Quiz';
+import JQuiz from './JQuiz';
+import VQuiz from './VQuiz';
+import DropQuiz from './DropQuiz';
+import FillInTheBlank from './FillInTheBlank';
+import CCodeRunner from "./CCodeRunner";
+import Exercise from "./Exercise"
+import CodeBox from "./CodeBox"
 import PopUp from './PopUp';
+import Gradeable from './Gradeable';
+import Footer from './Footer';
 
 SyntaxHighlighter.registerLanguage('c', c);
 
@@ -34,7 +38,7 @@ const customStyle = {
     // }
 };
 // Custom code renderer
-const CodeBlock = ({ node, inline, className, children, ...props }) => {
+export const CodeBlock = ({ node, inline, className, children, ...props }) => {
     const match = /language-(\w+)/.exec(className || '');
     return !inline && match ? (
         <SyntaxHighlighter style={customStyle} language={match[1]} PreTag="div" {...props}
@@ -131,13 +135,28 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                             </Exercise>
                         )
                     },
-                    // codebox: ({ children, ...props }) => {
-                    //     return (
-                    //         <CodeBox {...props} color={COLORS.exercise}>
-                    //             {children}
-                    //         </CodeBox>
-                    //     )
-                    // },
+                    jquiz: ({ node, ...props }) => (
+                        // <div className="my-2 bg-transparent rounded">
+                        <JQuiz {...props} slugs={slugs}></JQuiz>
+
+                        // </div>
+                    ),
+                    gradeable: ({ children, ...props }) => (
+                        <Gradeable {...props}>{children}</Gradeable>
+                    ),
+                    vquiz: ({ children, ...props }) => (
+                        <VQuiz {...props}>{children}</VQuiz>
+                    ),
+                    codebox: ({ children, ...props }) => {
+                        return (
+                            <CodeBox {...props} color={COLORS.exercise}>
+                                {children}
+                            </CodeBox>
+                        )
+                    },
+                    footer: ({ link, children, ...props }) => (
+                        <Footer link={link} {...props}>{children}</Footer>
+                    ),
                 }}
             >
                 {content}
