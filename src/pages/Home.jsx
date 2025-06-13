@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import Footer from '../components/Footer'
+import NavigationFooter from '../components/NavigationFooter'
 export default function Home() {
     const [manifest, setManifest] = useState({ lectures: [], exercises: [] })
 
@@ -35,6 +37,14 @@ export default function Home() {
                     </div>
                 ))}
             </section>
+
+            <Footer>
+                <NavigationFooter type="Previous"></NavigationFooter> {/* No previous link */}
+
+                <NavigationFooter link="/lectures/lecture1/intro-to-c" type="Next">
+                    Go to first lecture
+                </NavigationFooter>
+            </Footer>
 
             {/* exercises can go here the same way if you want nested grouping */}
         </div>
