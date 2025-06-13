@@ -281,3 +281,42 @@ A `short int` is
 | `long long int` |          At least 64 bits          |
 
 
+
+
+
+<exercise title="Exercise Set 2.0">
+<quiz title="2.0.1" question="What would be the best data type to store the number 4.5" options="{int:'', float:'Correct', double:'', string:''}" correct="float">
+
+```c
+int x = 5
+printf("%d\n", x)
+```
+
+</quiz>
+
+
+<quiz title="2.0.2" question="What data type would some text?"  options="{char:'', float:'', double:'', string:'Correct'}" correct="string" hint="C doesn't have a data type of the same name.">
+</quiz>
+
+
+<fillblank  question="What would be the best data type to store the number 4.5?" answer="float">
+
+```c
+_____ radius = 4.5;
+```
+
+</fillblank>
+
+
+<fillblank  question="What would be the best data type to store pi as precisely as possible?" answer="double">
+
+```c
+_____ pi = 3.1415926535; //...
+```
+
+</fillblank>
+
+
+<Quiz title="2.1.6" question="Which of loops is *not* supported by C" options="{for:'Incorrect', while:'Incorrect', foreach:'Correct', 'do while':'Incorrect'}" correct="foreach" hint="Does C let you loop over a list like python (for x in ___)?">
+</Quiz>
+</exercise>

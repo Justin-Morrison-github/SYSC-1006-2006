@@ -43,3 +43,24 @@ Most students find that these topics are the toughest concepts in the course. Ho
 <definition title="Keyword">
 Any word reserved in a programming language to have a special meaning (for, if, int, etc). Often times, you can't name anything (variables, functions, or types) the same as reserved keywords.
 </definition>
+
+
+# Resources
+
+
+### <a href="/files/The.C.Programming.Language.2nd.Edition.pdf" target="_blank" rel="noopener noreferrer"> The C Programming Language 2nd Edition by Kernighan and Ritchie</a> (Main Textbook)
+
+
+
+### <a href="https://pythontutor.com/c.html" target="_blank" rel="noopener noreferrer">C-Tutor</a>  (Used to visualize program execution and memory management)
+
+### <a href="https://www.learn-c.org/" target="_blank" rel="noopener noreferrer">Learn-C.org</a>
+### <a href="https://www.w3schools.com/c/c_intro.php" target="_blank" rel="noopener noreferrer">W3Schools.com</a>
+### <a href="https://www.geeksforgeeks.org/c-programming-language/" target="_blank" rel="noopener noreferrer">GeeksforGeeks.org</a>
+
+<br>
+
+## Beyond this course
+
+### If you want to go above and beyond there is <a href="https://cs50.harvard.edu/x/2025/" target="_blank" rel="noopener noreferrer">Harvard's CS50 online course.</a>
+- I went through this course and highly recommend it. All of the content is available for free.
