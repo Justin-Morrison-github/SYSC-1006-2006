@@ -3,15 +3,19 @@ import React, { useState, lazy, Suspense } from "react";
 // Lazy load Monaco Editor
 const MonacoEditor = lazy(() => import("@monaco-editor/react"));
 
-// export default function CCodeRunner() {
-const CCodeRunner = ({ title = "C Code Runner (Wandbox)" }) => {
-
-    const [code, setCode] = useState(`#include <stdio.h>
+const helloWorldCode = `#include <stdio.h>
 
 int main() {
-    printf("Hello, Wandbox!\\n");
+    printf("Hello, World!\\n");
     return 0;
-}`);
+}`
+
+const helloWorldOutput = "Hello, World!\n"
+
+// export default function CCodeRunner() {
+const CCodeRunner = ({ title = "C Code Runner (Wandbox)", startCode = helloWorldCode, expectedOutput = helloWorldOutput }) => {
+
+    const [code, setCode] = useState(startCode);
     const [output, setOutput] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -85,8 +89,20 @@ int main() {
                 {loading ? "Running..." : "Run Code"}
             </button>
 
-            <div className="bg-zinc-800 p-3 rounded text-green-200 font-mono whitespace-pre-wrap min-h-[100px]">
-                {output}
+            <div className="flex gap-2">
+                <div className="w-full">
+                    Code Output
+                    <div className="bg-zinc-800 p-3 rounded text-green-200 font-mono whitespace-pre-wrap min-h-[100px]">
+                        {output}
+                    </div>
+                    {output === expectedOutput ? "YES" : "NO"}
+                </div>
+                <div className="w-full">
+                    Expected Output
+                    <div className="bg-zinc-800 p-3 rounded text-green-200 font-mono whitespace-pre-wrap min-h-[100px]">
+                        {expectedOutput}
+                    </div>
+                </div>
             </div>
         </div>
     );
