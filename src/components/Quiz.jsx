@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from 'react';
 
 function parseOptions(str) {
     try {
@@ -19,12 +18,20 @@ function parseOptions(str) {
 
 export default function Quiz({ question, options, correct, children, title, hint, onAnswerChange }) {
     const [selected, setSelected] = useState(null);
+    const [hasAnswered, setHasAnswered] = useState(false);
     const isCorrect = selected !== null && selected === correct;
     const parsedOptions = typeof options === 'string' ? parseOptions(options) : options;
+    const [errorAnimationKey, setErrorAnimationKey] = useState(0);
+
 
     const handleClick = (opt) => {
         let newSelected = opt === selected ? null : opt;
         setSelected(newSelected);
+        setHasAnswered(true);
+
+        if (!isCorrect) {
+            setErrorAnimationKey((k) => k + 1); // bump key to remount animation div
+        }
 
         // Notify parent about correctness change
         if (onAnswerChange) {
@@ -55,9 +62,15 @@ export default function Quiz({ question, options, correct, children, title, hint
 
 
     return (
-        <div className='markdown-body mt-2'>
-            <div className="markdown-body px-4 py-2 border border-slate-500 rounded-md">
-                <div className='flex gap-4 items-center font-semibold py-2 mb-2'>
+        <div className='markdown-body mt-2 rounded-md'>
+            <div key={errorAnimationKey} className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md 
+                 ${hasAnswered && selected
+                    ? isCorrect
+                        ? 'bg-correct-sweep'
+                        : 'bg-error-gradient'
+                    : ''
+                }`}>
+                <div className='flex gap-4 items-center font-semibold py-2 mb-2 '>
                     <div className='text-bold text-xl underline'>
                         {title}
                     </div>
