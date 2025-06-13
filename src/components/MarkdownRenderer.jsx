@@ -58,7 +58,7 @@ const COLORS = {
     exercise: "#0ea5e9",
 };
 
-export default function MarkdownRenderer({ content }) {
+export default function MarkdownRenderer({ content, slugs, children }) {
     return (
         <div className="prose prose-invert markdown-body w-full max-w-none p-4 pb-6">
             <ReactMarkdown
@@ -66,29 +66,14 @@ export default function MarkdownRenderer({ content }) {
                 remarkPlugins={[remarkGfm]}
                 components={{
                     code: CodeBlock,
-                    // code: ({ node, inline, className, children, ...props }) => {
-                    //     const match = /language-(\w+)/.exec(className || '');
-                    //     return !inline && match ? (
-                    //         <SyntaxHighlighter style={oneDark} language={match[1]} PreTag="div" {...props}>
-                    //             {String(children).replace(/\n$/, '')}
-                    //         </SyntaxHighlighter>
-                    //     ) : (
-                    //         <code className="bg-gray-800 text-white px-1 py-0.5 rounded text-sm" {...props}>
-                    //             {children}
-                    //         </code>
-                    //     );
-                    // },
                     blockquote: ({ children }) => (
                         <div className="bg-zinc-800 border-l-4 border-yellow-500 p-4 rounded-md my-4 font-semibold text-blue-100">
                             {children}
                         </div>
                     ),
-                    strong: ({ children }) => (
-                        <strong className="text-blue-400 font-bold">{children}</strong>
+                    strong: ({ children, color = "#3b82f6" }) => (
+                        <strong className="font-bold" style={{ color: color }}>{children}</strong>
                     ),
-                    // strong: ({ children, color = "blue-400" }) => (
-                    //     <strong className={`text-${color} font-bold`}>{children}</strong>
-                    // ),
                     // em: ({ children }) => (
                     //     <strong className="text-blue-400 font-bold">{children}</strong>
                     // ),
@@ -157,7 +142,7 @@ export default function MarkdownRenderer({ content }) {
             >
                 {content}
             </ReactMarkdown>
+            {children}
         </div>
     )
-
 }
