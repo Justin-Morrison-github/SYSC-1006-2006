@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.0",
+    "@mdx-js/rollup": "^3.1.0",
     "@monaco-editor/react": "^4.7.0",
     "@primer/octicons-react": "^19.15.2",
     "@tailwindcss/typography": "^0.5.16",
     "github-markdown-css": "^5.8.1",
     "lucide-react": "^0.511.0",
+    "mdx": "^0.3.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-markdown": "^10.1.0",
