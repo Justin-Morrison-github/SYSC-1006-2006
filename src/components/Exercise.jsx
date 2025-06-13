@@ -1,5 +1,4 @@
 import React, { useState, isValidElement } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { QuestionIcon } from '@primer/octicons-react';
 
 const pop_up_style1 = "border-l-4 p-4 my-8 bg-zinc-800 rounded-md"
@@ -7,7 +6,6 @@ const pop_up_style2 = "border-l-4 p-4 my-8 bg-zinc-900"
 
 export default function Exercise({ children, title, dropdown = true, initialCollapsed = false, color }) {
     const [collapsed, setCollapsed] = useState(initialCollapsed);
-
     const [correctMap, setCorrectMap] = useState({});
 
     const handleAnswerChange = (index, isCorrect) => {
@@ -17,16 +15,18 @@ export default function Exercise({ children, title, dropdown = true, initialColl
         }));
     };
     const validChildren = React.Children.toArray(children).filter(isValidElement);
+    const childrenWithAnswerChange = validChildren.filter(child =>
+        ["quiz", "dropquiz", "jquiz", "fillblank"].includes(child.type.name)
+    );
 
-    const totalCount = validChildren.length;
+    const totalCount = childrenWithAnswerChange.length;
     const correctCount = Object.values(correctMap).filter(Boolean).length;
-
     const progressPercent = totalCount === 0 ? 0 : (correctCount / totalCount) * 100;
 
 
     return (
         <div className={pop_up_style1} style={{ borderColor: color }}>
-            <div className='mb-2' style={{ color: color, fontSize: "x-large" }} >
+            <div className='sticky top-12 h-12 bg-zinc-800 z-[40]' style={{ color: color, fontSize: "x-large" }} >
                 <button onClick={() => setCollapsed((prev) => !prev)} disabled={!dropdown}>
                     <div className='flex gap-4 items-center'>
                         <QuestionIcon size={20} />
@@ -55,7 +55,7 @@ export default function Exercise({ children, title, dropdown = true, initialColl
                 !collapsed &&
                 (
                     <div>
-                        {validChildren.map((child, index) =>
+                        {childrenWithAnswerChange.map((child, index) =>
                             React.cloneElement(child, {
                                 key: child.key ?? index,
                                 onAnswerChange: isCorrect => handleAnswerChange(child.key ?? index, isCorrect),
