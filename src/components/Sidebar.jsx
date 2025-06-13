@@ -18,19 +18,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
     return (
         <>
-            {/* <div className='fixed bg-blue-500 h-8'>
-                test
-                <button
-                    className="fixed top-4 left-2 z-50 text-white p-2 rounded-lg"
-                    onClick={() => setSidebarOpen(!sidebarOpen)}
-                >
-                    {sidebarOpen ? <XIcon className="w-8 h-8" /> : <MenuIcon className="w-8 h-8" />}
-                </button>
-                <div className={`fixed top-6 left-16 text-xl ${sidebarOpen ? "z-[50]" : "z-0"}`}>
-                    Name of Thing
-                </div>
-            </div> */}
-            <div className="fixed top-0 left-0 w-full h-12  flex items-center px-4 z-50 shadow-md"
+            <div className="fixed top-0 left-0 w-full h-12 flex items-center px-4 z-[50] shadow-md"
                 style={{ backgroundColor: headerColor }}>
                 {/* Sidebar Toggle Button */}
                 <button
