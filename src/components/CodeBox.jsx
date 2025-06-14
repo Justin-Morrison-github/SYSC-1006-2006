@@ -19,7 +19,7 @@ const customStyle = {
     //     backgroundColor: 'transparent',
     // }
 };
-export default function CodeBox({ language, children }) {
+export default function CodeBox({ language, children, copy = "true" }) {
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
         navigator.clipboard.writeText(children).then(() => {
@@ -28,17 +28,21 @@ export default function CodeBox({ language, children }) {
         });
     };
     return (
-        <div className="relative my-4">
-            <button className='absolute right-[10px] top-[10px] text-white px-2 py-1 rounded cursor-pointer text-sm'
-                onClick={handleCopy}
-                style={{
-                    background: copied ? '#4caf50' : '#555',
-                }}
-            >
-                {copied ? 'Copied!' : 'Copy'}
-            </button>
-            <SyntaxHighlighter language={language} style={customStyle} wrapLines
-            >
+        <div className="relative">
+            {
+                copy === "true" && (
+                    <button className='absolute right-[10px] top-[10px] text-white px-2 py-1 rounded cursor-pointer text-sm'
+                        onClick={handleCopy}
+                        style={{
+                            background: copied ? '#4caf50' : '#555',
+                        }}
+                    >
+                        {copied ? 'Copied!' : 'Copy'}
+                    </button>
+                )
+            }
+
+            <SyntaxHighlighter language={language} style={customStyle} wrapLines>
                 {children}
             </SyntaxHighlighter>
         </div>
