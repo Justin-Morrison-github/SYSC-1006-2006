@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Children } from 'react';
 import CodeBox from './CodeBox';
-
+import { COLORS } from './MarkdownRenderer'
 
 async function loadJson(lecture, file) {
     try {
@@ -25,6 +25,21 @@ export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber
     const isCorrect = selected !== null && selected === parsedQuestion?.answer;
     const [animationKey, setAnimationKey] = useState(0);
     const [hasAnswered, setHasAnswered] = useState(false);
+    const [animateClass, setAnimateClass] = useState('');
+
+    useEffect(() => {
+        if (hasAnswered && selected) {
+            const className = isCorrect ? 'bg-correct-sweep' : 'bg-error-gradient';
+            setAnimateClass(className);
+
+            // Remove class after animation to prevent replay on re-show
+            if (className !== "bg-correct-sweep" && className !== "bg-correct-gradient") {
+                const timeout = setTimeout(() => setAnimateClass(''), 600);
+                return () => clearTimeout(timeout);
+            }
+        }
+    }, [hasAnswered, selected]);
+
 
     useEffect(() => {
         // Load JSON only once or when lecture/file/question change
@@ -68,86 +83,77 @@ export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber
 
     return (
         <div className='markdown-body my-4 rounded-md'>
-            {/* <div className="markdown-body px-4 pt-2 border border-slate-500 rounded-md"> */}
-            <div key={animationKey} className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md 
-                 ${hasAnswered && selected
-                    ? isCorrect
-                        ? 'bg-correct-sweep'
-                        : 'bg-error-gradient'
-                    : ''
-                }`}>
-                <div className='flex gap-4 items-center font-semibold py-2 mb-2'>
-                    <div className='text-bold text-xl underline'>
-                        {parsedQuestion?.title}
+            <div key={animationKey}
+                className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md ${animateClass}`}
+            >
+                <div className='flex gap-2 justify-left items-center pt-2 ml-2 border-b w-max'
+                    style={{ borderColor: COLORS.exercise }}>
+
+                    <div className={`text-bold text-2xl`} style={{ color: "white" }}>
+                        {exercisenumber}.{question}
                     </div>
-                    {parsedQuestion?.question}
+
+                    <div className='text-2xl' style={{ color: "white" }}>
+                        {parsedQuestion?.question}
+                    </div>
                 </div>
 
-                <CodeBox language='c'>
-                    {parsedQuestion?.code}
-                </CodeBox>
+                <div className='flex flex-col gap-2 w-max p-2' >
 
-                <div key={animationKey}
-                // className={`w-[1336px] relative left-[-16px] pt-4 border-t rounded-b-md 
-                //     ${hasAnswered && selected
-                //         ? isCorrect
-                //             ? 'bg-correct-sweep'
-                //             : 'bg-error-gradient'
-                //         : ''
-                //     }
-                // `}
-                >
-                    <div className="flex flex-col gap-3 w-24 ">
-                        {/* <div className=" gap-3 w-24 grid grid-cols-[100px_100px] "> */}
+                    <CodeBox language='c' copy="false">
+                        {parsedQuestion?.code}
+                    </CodeBox>
 
+                    <div className="flex flex-col gap-3 w-max" key={animationKey}>
                         {parsedQuestion &&
-                            Object.entries(parsedQuestion.options).map(([opt, _]) => {
-                                const isSelected = selected === opt;
-
+                            Object.entries(parsedQuestion?.options).map(([opt, _]) => {
                                 return (
                                     <button
                                         key={opt}
                                         onClick={() => handleClick(opt)}
                                         className={`
-                                        px-4 py-2 rounded border cursor-pointer
-                                        ${isSelected
+                                        px-6 py-2 rounded border cursor-pointer w-full
+                                        ${selected === opt
                                                 ? `text-black ${opt === parsedQuestion?.answer ? 'border-green-500 bg-green-400' : 'border-red-500 bg-red-400'}`
                                                 : 'border-gray-300 bg-slate-900 text-white'}
                                       `}
                                     >
-                                        {opt}
+                                        <div className='flex justify-center items-center relative inline-block'>
+                                            <div>
+
+                                                {opt}
+                                            </div>
+
+                                            {selected === opt && (
+                                                <div className="absolute left-full top-0 ml-[30px] text-white text-left w-max">
+                                                    {isCorrect ? '✅' : '❌'} {parsedQuestion?.options[selected] || "Incorrect"}
+                                                </div>
+                                            )}
+                                        </div>
+
                                     </button>
                                 );
                             })}
-                    </div>
-
-
-
-                    <div className="text-yellow-700 py-2 mb-1 flex gap-4 ">
-                        {
-                            parsedQuestion && parsedQuestion?.hint && (
-                                <button className='text-white/80 text-left rounded hover:bg-slate-800 h-full'
-                                    onClick={handleHintClick}
-                                >
-                                    {giveHint ? "Hide Hint" : "Show Hint"}
-                                </button>
-                            )
-                        }
-                        {
-                            giveHint && (
-                                <div className='text-yellow-400'>{parsedQuestion?.hint}</div>
-                            )
-                        }
-                    </div>
-
-                    {selected !== null && (
-                        <div className=" py-2">
-                            {isCorrect ? '✅' : '❌'} {parsedQuestion?.options[selected] || "Incorrect"}
+                        <div className=" relative inline-block w-full">
+                            {
+                                parsedQuestion && parsedQuestion?.hint && (
+                                    <button className='text-white/80 text-center rounded hover:bg-slate-800 h-full w-full'
+                                        onClick={handleHintClick}
+                                    >
+                                        {giveHint ? "Hide" : "Hint"}
+                                    </button>
+                                )
+                            }
+                            {
+                                giveHint && (
+                                    <div className='absolute left-full top-0 ml-[10px] text-yellow-400 w-max'>{parsedQuestion?.hint}</div>
+                                )
+                            }
                         </div>
-                    )}
+                    </div>
+
                 </div>
             </div>
-
         </div>
     );
 }
