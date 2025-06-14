@@ -55,7 +55,7 @@ export const CodeBlock = ({ node, inline, className, children, ...props }) => {
     );
 };
 
-const COLORS = {
+export const COLORS = {
     definition: '#fa73ce',
     warning: '#eab308',
     info: '#3b82f6',
@@ -138,10 +138,7 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                         )
                     },
                     jquiz: ({ node, ...props }) => (
-                        // <div className="my-2 bg-transparent rounded">
                         <JQuiz {...props} slugs={slugs}></JQuiz>
-
-                        // </div>
                     ),
                     vjquiz: ({ node, ...props }) => (
                         <VJQuiz {...props} slugs={slugs}></VJQuiz>
