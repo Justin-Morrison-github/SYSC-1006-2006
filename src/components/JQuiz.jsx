@@ -23,14 +23,15 @@ export default function JQuiz({ question, onAnswerChange, slugs }) {
     const [parsedQuestion, setParsedQuestion] = useState(null);
     const [giveHint, setGiveHint] = useState(false);
     const isCorrect = selected !== null && selected === parsedQuestion?.answer;
-
+    const [errorAnimationKey, setErrorAnimationKey] = useState(0);
+    const [hasAnswered, setHasAnswered] = useState(false);
 
 
     useEffect(() => {
         // Load JSON only once or when lecture/file/question change
         loadJson(slugs?.lecture, slugs?.topic).then(data => {
             const q = data[question];
-            console.log('Loaded question:', q);
+            // console.log('Loaded question:', q);
             setParsedQuestion(q);
 
         });
@@ -43,6 +44,11 @@ export default function JQuiz({ question, onAnswerChange, slugs }) {
     const handleClick = (opt) => {
         let newSelected = opt === selected ? null : opt;
         setSelected(newSelected);
+        setHasAnswered(true);
+
+        if (!isCorrect) {
+            setErrorAnimationKey((k) => k + 1); // bump key to remount animation div
+        }
 
         // Notify parent about correctness change
         if (onAnswerChange) {
@@ -64,7 +70,14 @@ export default function JQuiz({ question, onAnswerChange, slugs }) {
 
     return (
         <div className='markdown-body mt-2 rounded-md'>
-            <div className="markdown-body px-4 py-2 border border-slate-500 rounded-md">
+            {/* <div className="markdown-body px-4 py-2 border border-slate-500 rounded-md"> */}
+            <div key={errorAnimationKey} className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md 
+                 ${hasAnswered && selected
+                    ? isCorrect
+                        ? 'bg-correct-gradient'
+                        : 'bg-error-gradient'
+                    : ''
+                }`}>
                 <div className='flex gap-4 items-center font-semibold py-2 mb-2'>
                     <div className='text-bold text-xl underline'>
                         {parsedQuestion?.title}
@@ -88,7 +101,7 @@ export default function JQuiz({ question, onAnswerChange, slugs }) {
                                     className={`
                                         px-4 py-2 rounded border 
                                         ${isSelected
-                                            ? `text-black ${opt === parsedQuestion?.answer ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'}`
+                                            ? `text-black ${opt === parsedQuestion?.answer ? 'border-green-500 bg-green-400' : 'border-red-500 bg-red-400'}`
                                             : 'border-gray-300 bg-slate-900 text-white'}
                                         cursor-pointer
                                       `}

@@ -1,5 +1,7 @@
 import React, { useState, isValidElement } from 'react';
 import { QuestionIcon } from '@primer/octicons-react';
+import Lottie from "lottie-react";
+import checkmarkAnimation from '../assets/animations/checkmark.json'
 
 const pop_up_style1 = "border-l-4 p-4 my-8 bg-zinc-800 rounded-md"
 const pop_up_style2 = "border-l-4 p-4 my-8 bg-zinc-900"
@@ -16,7 +18,7 @@ export default function Exercise({ children, title, dropdown = true, initialColl
     };
     const validChildren = React.Children.toArray(children).filter(isValidElement);
     const childrenWithAnswerChange = validChildren.filter(child =>
-        ["quiz", "dropquiz", "jquiz", "fillblank"].includes(child.type.name)
+        ["quiz", "dropquiz", "jquiz", "vjquiz", "fillblank"].includes(child.type.name)
     );
 
     const totalCount = childrenWithAnswerChange.length;
@@ -35,18 +37,41 @@ export default function Exercise({ children, title, dropdown = true, initialColl
                             {correctCount} / {totalCount}
                         </div>
 
-                        <div className="h-5 w-[200px] bg-gray-300 rounded-lg overflow-hidden">
+
+
+                        <div className="h-5 w-[200px] bg-gray-300 rounded-lg">
                             {/* Progress indicator */}
-                            <div
-                                className="h-full bg-green-500 transition-all duration-300 ease-in-out"
-                                style={{ width: `${progressPercent}%` }}
-                            />
+                            {
+                                correctCount === totalCount ? (
+                                    <div
+                                        className="h-full bg-green-500 transition-all duration-300 ease-in-out rounded"
+                                        style={{
+                                            width: `${progressPercent}%`,
+                                            boxShadow: '0 0 5px rgb(37, 121, 68), 0 0 10px rgb(55, 156, 91), 0 0 15px rgb(50, 115, 75)',
+                                        }}
+                                    />
+                                ) : (
+                                    <div
+                                        className="h-full bg-green-500 transition-all duration-300 ease-in-out"
+                                        style={{ width: `${progressPercent}%` }}
+                                    />
+                                )
+                            }
                         </div>
-                        <div className='relative bottom-1 right-1'>
 
-                            {correctCount === totalCount ? "🎉" : ""}
-                        </div>
+                        {
+                            correctCount === totalCount ? (
+                                <Lottie
+                                    animationData={checkmarkAnimation}
+                                    autoplay={true}
+                                    loop={false}
+                                    style={{ height: "3rem" }}
+                                />
+                            ) : (
+                                <div className='h-[48px]'></div>
+                            )
 
+                        }
                     </div>
                 </button>
 

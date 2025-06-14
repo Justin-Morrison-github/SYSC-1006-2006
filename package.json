@@ -16,6 +16,7 @@
     "@primer/octicons-react": "^19.15.2",
     "@tailwindcss/typography": "^0.5.16",
     "github-markdown-css": "^5.8.1",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.511.0",
     "mdx": "^0.3.1",
     "react": "^19.1.0",

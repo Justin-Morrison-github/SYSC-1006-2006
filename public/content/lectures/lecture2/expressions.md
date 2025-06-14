@@ -112,6 +112,23 @@ For anything you do in class this is not something to worry about. But if you ar
 
 ## Exercises
 
+<exercise title="Exercise Set 1">
+   
+<VJQuiz question="1">
+</VJQuiz>
+
+<VJquiz question="2">
+</VJquiz>
+
+<Vjquiz question="3">
+</Vjquiz>
+
+<vjquiz question="4">
+</vjquiz>
+
+</exercise>
+
+
 <exercise title="Exercise Set 2">
    
 <JQuiz question="1">
@@ -124,9 +141,6 @@ For anything you do in class this is not something to worry about. But if you ar
 </JQuiz>
 
 <JQuiz question="4">
-</JQuiz>
-
-<JQuiz question="5">
 </JQuiz>
 
 </exercise>

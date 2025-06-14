@@ -45,7 +45,7 @@ Variables are the building blocks of programming. Unlink literals, variables can
 - A value
 
 Example
-```C
+```c
 int x = 5;
 ```
 
@@ -64,7 +64,7 @@ There are 2 steps to using a variable in C:
 C is a statically typed language which means you must define the type of the variable when it is declared and before it can be given a value. The type tells the compiler how to assign data to the variable. 
 
 Examples:
-```C
+```c
 int x;
 float pi;
 double radius;
@@ -81,17 +81,17 @@ You can also declare multiple variables of the same type on the same line. Howev
 
 Meaning you can do this:
 
-```C
+```c
 int x, y, z;  // ✅ OK — same type
 ```
 
 But not this:
-```C
+```c
 int i, char c, float f; // ❌ Compilation error
 ```
 
 If you have multiple types, their declarations must go on seperate lines:
-```C
+```c
 int i;
 char c;
 float f; // ✅ OK
@@ -103,7 +103,7 @@ float f; // ✅ OK
 Initialization or assignment is where you actually assign values to your variables. 
 
 Assuming you already have a variable `int x` declared. You can assign it like this:
-```C
+```c
 x = 5;
 ```
 
@@ -112,19 +112,19 @@ x = 5;
 #### Combining Declaration and Initiliazation
 
 You can declare your variables first and then initialize them later like this:
-```C
+```c
 int x;
 ...any other code...
 x = 5;
 ``` 
 
 or you can do it in one line:
-```C
+```c
 int x = 5;
 ``` 
 
 More examples:
-```C
+```c
 float pi;
 double radius = 5.345162;
 char letter = 'a';
@@ -137,14 +137,14 @@ Notice how for the char variable `letter` only single quotes were used. In C, wh
 
 The same rules to as just declaring multiple variables on the same line; they ***must*** be the same type. But there is one more wrinkle, each value must be assigned seperately. I think an example will make this clearer. If you wanted to define three ints, x, y, and z and initialize them all to 0 you might think to do something like this:
 
-```C
+```c
 int x, y, z = 0; // ❌ Unintended outcome
 ```
 
 But actually this only sets `z = 0` and leaves x and y uninitialized. 
 
 What you actually want to do is this:
-```C
+```c
 int x = 0, y = 0, z = 0; // ✅ Correct outcome
 ```
 
@@ -152,7 +152,7 @@ This type of thing rarely comes up but it can be confusing to understand.
 
 
 Also same as before you need to seperate types to their own lines:
-```C
+```c
 int x = 1, y = 2;
 double r = 1.5, l = 4.0, w = 5.5;
 char c = '@'; 
@@ -199,7 +199,7 @@ A `signed int` has the range: -2^31^ → 2^31^ -1 which is `–2,147,483,648` to
 - Note: If you know you don't need to represent negative numbers, use an unsigned number as it gives you a larger positive range.
 
 These are equivalent:
-```C
+```c
 int x;
 signed int x;
 signed x; //int is implied because signed only applies to int types
@@ -295,7 +295,7 @@ printf("%d\n", x)
 </quiz>
 
 
-<quiz title="2.0.2" question="What data type would some text?"  options="{char:'', float:'', double:'', string:'Correct'}" correct="string" hint="C doesn't have a data type of the same name.">
+<quiz title="2.0.2" question="What data type would represent some text?"  options="{char:'', float:'', double:'', string:'Correct'}" correct="string" hint="C doesn't have a data type of the same name.">
 </quiz>
 
 

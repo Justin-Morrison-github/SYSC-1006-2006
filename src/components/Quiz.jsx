@@ -90,7 +90,7 @@ export default function Quiz({ question, options, correct, children, title, hint
                                 className={`
                                 px-4 py-2 rounded border 
                                 ${isSelected
-                                        ? `text-black ${opt === correct ? 'border-green-500 bg-green-100' : 'border-red-500 bg-red-100'}`
+                                        ? `text-black ${opt === correct ? 'border-green-500 bg-green-400' : 'border-red-500 bg-red-400'}`
                                         : 'border-gray-300 bg-slate-900 text-white'}
                                 cursor-pointer
                             `}
@@ -123,7 +123,6 @@ export default function Quiz({ question, options, correct, children, title, hint
                     </div>
                 )}
             </div>
-
         </div>
     );
 }

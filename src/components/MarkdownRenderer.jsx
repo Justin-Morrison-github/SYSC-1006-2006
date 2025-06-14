@@ -9,6 +9,7 @@ import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
 // Custom Components
 import Quiz from './Quiz';
 import JQuiz from './JQuiz';
+import VJQuiz from './VJQuiz';
 import VQuiz from './VQuiz';
 import DropQuiz from './DropQuiz';
 import FillInTheBlank from './FillInTheBlank';
@@ -18,6 +19,7 @@ import CodeBox from "./CodeBox"
 import PopUp from './PopUp';
 import Gradeable from './Gradeable';
 import Footer from './Footer';
+// import CheckQuiz from './CheckQuiz';
 
 SyntaxHighlighter.registerLanguage('c', c);
 
@@ -141,6 +143,9 @@ export default function MarkdownRenderer({ content, slugs, children }) {
 
                         // </div>
                     ),
+                    vjquiz: ({ node, ...props }) => (
+                        <VJQuiz {...props} slugs={slugs}></VJQuiz>
+                    ),
                     gradeable: ({ children, ...props }) => (
                         <Gradeable {...props}>{children}</Gradeable>
                     ),
@@ -154,6 +159,9 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                             </CodeBox>
                         )
                     },
+                    // checkquiz: ({ children, ...props }) => (
+                    //     <CheckQuiz {...props} slugs={slugs}></CheckQuiz>
+                    // ),
                     footer: ({ link, children, ...props }) => (
                         <Footer link={link} {...props}>{children}</Footer>
                     ),
