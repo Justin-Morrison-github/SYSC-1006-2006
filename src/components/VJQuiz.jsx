@@ -18,7 +18,7 @@ async function loadJson(lecture, file) {
 }
 
 
-export default function VJQuiz({ question, onAnswerChange, slugs }) {
+export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber }) {
     const [selected, setSelected] = useState(null);
     const [parsedQuestion, setParsedQuestion] = useState(null);
     const [giveHint, setGiveHint] = useState(false);
@@ -29,8 +29,7 @@ export default function VJQuiz({ question, onAnswerChange, slugs }) {
     useEffect(() => {
         // Load JSON only once or when lecture/file/question change
         loadJson(slugs?.lecture, slugs?.topic).then(data => {
-            const q = data[question];
-            console.log('VJQuiz Loaded question:', q);
+            const q = data[exercisenumber][question];
             setParsedQuestion(q);
 
         });

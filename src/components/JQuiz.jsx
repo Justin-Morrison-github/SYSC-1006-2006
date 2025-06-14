@@ -18,7 +18,7 @@ async function loadJson(lecture, file) {
 }
 
 
-export default function JQuiz({ question, onAnswerChange, slugs }) {
+export default function JQuiz({ question, onAnswerChange, slugs, exercisenumber }) {
     const [selected, setSelected] = useState(null);
     const [parsedQuestion, setParsedQuestion] = useState(null);
     const [giveHint, setGiveHint] = useState(false);
@@ -30,12 +30,12 @@ export default function JQuiz({ question, onAnswerChange, slugs }) {
     useEffect(() => {
         // Load JSON only once or when lecture/file/question change
         loadJson(slugs?.lecture, slugs?.topic).then(data => {
-            const q = data[question];
-            // console.log('Loaded question:', q);
+            const q = data[exercisenumber][question];
+            console.log('Loaded question:', q);
             setParsedQuestion(q);
 
         });
-    }, [question]); // re-run if these change
+    }, [question, exercisenumber]); // re-run if these change
 
     const handleHintClick = () => {
         setGiveHint((prev) => !prev)
@@ -80,7 +80,8 @@ export default function JQuiz({ question, onAnswerChange, slugs }) {
                 }`}>
                 <div className='flex gap-4 items-center font-semibold py-2 mb-2'>
                     <div className='text-bold text-xl underline'>
-                        {parsedQuestion?.title}
+                        {/* {parsedQuestion?.title} */}
+                        {exercisenumber}.{question}
                     </div>
                     {parsedQuestion?.question}
                 </div>

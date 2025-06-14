@@ -112,7 +112,7 @@ For anything you do in class this is not something to worry about. But if you ar
 
 ## Exercises
 
-<exercise title="Exercise Set 1">
+<exercise title="Exercise Set 1" exercisenumber="1">
    
 <VJQuiz question="1">
 </VJQuiz>
@@ -129,7 +129,7 @@ For anything you do in class this is not something to worry about. But if you ar
 </exercise>
 
 
-<exercise title="Exercise Set 2">
+<exercise title="Exercise Set 2" exercisenumber="2">
    
 <JQuiz question="1">
 </JQuiz>

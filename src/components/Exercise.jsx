@@ -6,9 +6,10 @@ import checkmarkAnimation from '../assets/animations/checkmark.json'
 const pop_up_style1 = "border-l-4 p-4 my-8 bg-zinc-800 rounded-md"
 const pop_up_style2 = "border-l-4 p-4 my-8 bg-zinc-900"
 
-export default function Exercise({ children, title, dropdown = true, initialCollapsed = false, color }) {
+export default function Exercise({ children, title, exercisenumber, dropdown = true, initialCollapsed = false, color, }) {
     const [collapsed, setCollapsed] = useState(initialCollapsed);
     const [correctMap, setCorrectMap] = useState({});
+
 
     const handleAnswerChange = (index, isCorrect) => {
         setCorrectMap(prev => ({
@@ -74,21 +75,17 @@ export default function Exercise({ children, title, dropdown = true, initialColl
                         }
                     </div>
                 </button>
-
             </div>
-            {
-                !collapsed &&
-                (
-                    <div>
-                        {childrenWithAnswerChange.map((child, index) =>
-                            React.cloneElement(child, {
-                                key: child.key ?? index,
-                                onAnswerChange: isCorrect => handleAnswerChange(child.key ?? index, isCorrect),
-                            })
-                        )}
-                    </div>
-                )
-            }
+
+            <div className={collapsed ? "hidden" : "block"}>
+                {childrenWithAnswerChange.map((child, index) =>
+                    React.cloneElement(child, {
+                        key: child.key ?? index,
+                        onAnswerChange: isCorrect => handleAnswerChange(child.key ?? index, isCorrect),
+                        exercisenumber: exercisenumber
+                    })
+                )}
+            </div>
         </div>
     )
 }
