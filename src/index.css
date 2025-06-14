@@ -31,7 +31,10 @@
 
 .bg-correct-sweep {
     /* background-image: linear-gradient(to right, #0d1117, #228848); */
-    background-image: linear-gradient(to right, #0d1117, #1f7d41);
+    /* background-image: linear-gradient(to right, #0d1117, #2951a9); */
+    /* background-image: linear-gradient(to right, #0d1117, #1f3d7d); Nice Blue color*/
+    background-image: linear-gradient(to right, #0d1117, #22c55e);
+
     background-size: 200% 100%;
     background-position: 0% 100%;
     animation: sweep 1s ease-out forwards;
