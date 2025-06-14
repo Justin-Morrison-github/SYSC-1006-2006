@@ -31,21 +31,20 @@ export default function Exercise({ children, title, exercisenumber, dropdown = t
         <div className={pop_up_style1} style={{ borderColor: color }}>
             <div className='sticky top-12 h-12 bg-zinc-800 z-[40]' style={{ color: color, fontSize: "x-large" }} >
                 <button onClick={() => setCollapsed((prev) => !prev)} disabled={!dropdown}>
-                    <div className='flex gap-4 items-center'>
-                        <QuestionIcon size={20} />
+                    {/* <div className='flex gap-4 items-center'> */}
+                    <div className='grid grid-cols-[26px_160px_70px_200px_50px] gap-4 items-center text-left'>
+                        <QuestionIcon size={26} />
                         <strong>{title}</strong>
                         <div className='text-white'>
                             {correctCount} / {totalCount}
                         </div>
 
-
-
-                        <div className="h-5 w-[200px] bg-gray-300 rounded-lg">
+                        <div className="h-5 w-[200px] bg-gray-300 rounded-md">
                             {/* Progress indicator */}
                             {
                                 correctCount === totalCount ? (
                                     <div
-                                        className="h-full bg-green-500 transition-all duration-300 ease-in-out rounded"
+                                        className="h-full bg-green-500 transition-all duration-300 ease-in-out rounded-md"
                                         style={{
                                             width: `${progressPercent}%`,
                                             boxShadow: '0 0 5px rgb(37, 121, 68), 0 0 10px rgb(55, 156, 91), 0 0 15px rgb(50, 115, 75)',
@@ -53,7 +52,7 @@ export default function Exercise({ children, title, exercisenumber, dropdown = t
                                     />
                                 ) : (
                                     <div
-                                        className="h-full bg-green-500 transition-all duration-300 ease-in-out"
+                                        className="h-full bg-green-500 transition-all duration-300 ease-in-out rounded-md"
                                         style={{ width: `${progressPercent}%` }}
                                     />
                                 )
