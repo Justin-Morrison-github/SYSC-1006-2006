@@ -6,33 +6,44 @@ import MarkdownRenderer from './MarkdownRenderer'
 
 import Footer from '../components/Footer'
 import NavigationFooter from '../components/NavigationFooter'
-import manifest from '../content/manifest.json';
-
-function getFlatLectureList(manifest) {
-    const lecturePages = [];
-    const exercisePages = [];
-
-    manifest.lectures.forEach(lecture => {
-        lecture.topics.forEach(topic => {
-            lecturePages.push({
-                path: `/lectures/${lecture.slug}/${topic.slug}`,
-                title: topic.title,
-            });
-        });
-    });
-
-    manifest.exercises.forEach(exercise => {
-        exercisePages.push({
-            path: `/exercises/${exercise.slug}`,
-            title: exercise.title,
-        });
-    });
-
-    return { lectures: lecturePages, exercises: exercisePages };
-}
 
 
 export default function MarkdownPage({ type = 'lectures' }) {
+
+    const getFlatLectureList = (manifest) => {
+        const lecturePages = [];
+        const exercisePages = [];
+
+        manifest.lectures.forEach(lecture => {
+            lecture.topics.forEach(topic => {
+                lecturePages.push({
+                    path: `/lectures/${lecture.slug}/${topic.slug}`,
+                    title: topic.title,
+                });
+            });
+        });
+
+        manifest.exercises.forEach(exercise => {
+            exercisePages.push({
+                path: `/exercises/${exercise.slug}`,
+                title: exercise.title,
+            });
+        });
+
+        return { lectures: lecturePages, exercises: exercisePages };
+    }
+
+
+    const [manifest, setManifest] = useState({ lectures: [], exercises: [] });
+
+    useEffect(() => {
+        fetch('/content/manifest.json')
+            .then((res) => res.json())
+            .then(setManifest)
+            .catch(console.error);
+    }, []);
+
+
     const { lectureSlug, lectureTopicSlug, exerciseSlug } = useParams()
     const [content, setContent] = useState('Loading...')
 
@@ -49,9 +60,9 @@ export default function MarkdownPage({ type = 'lectures' }) {
             break
     }
 
-    const currentIndex = flatList?.[type].findIndex(p => p.path === currentPath);
-    const prevPage = flatList?.[type][currentIndex - 1] || null;
-    const nextPage = flatList?.[type][currentIndex + 1] || null;
+    const currentIndex = flatList?.[type]?.findIndex(p => p.path === currentPath);
+    const prevPage = flatList?.[type]?.[currentIndex - 1] || null;
+    const nextPage = flatList?.[type]?.[currentIndex + 1] || null;
 
 
     useEffect(() => {
