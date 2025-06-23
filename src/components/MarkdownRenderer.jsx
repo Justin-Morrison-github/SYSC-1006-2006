@@ -10,7 +10,6 @@ import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
 import Quiz from './Quiz';
 import JQuiz from './JQuiz';
 import VJQuiz from './VJQuiz';
-import VQuiz from './VQuiz';
 import DropQuiz from './DropQuiz';
 import FillInTheBlank from './FillInTheBlank';
 import CCodeRunner from "./CCodeRunner";
@@ -179,9 +178,6 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     gradeable: ({ children, ...props }) => (
                         <Gradeable {...props}>{children}</Gradeable>
                     ),
-                    // vquiz: ({ children, ...props }) => (
-                    //     <VQuiz {...props}>{children}</VQuiz>
-                    // ),
                     codebox: ({ children, ...props }) => (
                         <CodeBox {...props} color={COLORS.exercise}>
                             {children}
