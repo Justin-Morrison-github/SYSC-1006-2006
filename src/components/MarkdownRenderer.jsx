@@ -179,9 +179,9 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     gradeable: ({ children, ...props }) => (
                         <Gradeable {...props}>{children}</Gradeable>
                     ),
-                    vquiz: ({ children, ...props }) => (
-                        <VQuiz {...props}>{children}</VQuiz>
-                    ),
+                    // vquiz: ({ children, ...props }) => (
+                    //     <VQuiz {...props}>{children}</VQuiz>
+                    // ),
                     codebox: ({ children, ...props }) => (
                         <CodeBox {...props} color={COLORS.exercise}>
                             {children}
