@@ -1,14 +1,10 @@
 import MultiQuiz from './MultiQuiz';
 import VJQuiz from './VJQuiz';
 import JQuiz from './JQuiz';
+import DropQuiz from './DropQuiz'
 
 export default function Quiz({ type, question, onAnswerChange, slugs, exercisenumber }) {
 
-    const validTypes = ["multiselect", "vertical", "horizontal"]
-    if (!validTypes.includes(type)) {
-        console.error("Invalid type", type)
-        return <div>Error</div>;
-    }
 
     if (type === "horizontal") {
         return (
@@ -25,6 +21,12 @@ export default function Quiz({ type, question, onAnswerChange, slugs, exercisenu
     else if (type === "multiselect") {
         return (
             <MultiQuiz question={question} onAnswerChange={onAnswerChange} slugs={slugs} exercisenumber={exercisenumber} />
+        )
+    }
+
+    else if (type.startsWith("drop")) {
+        return (
+            <DropQuiz type={type} question={question} onAnswerChange={onAnswerChange} slugs={slugs} exercisenumber={exercisenumber} />
         )
     }
 
