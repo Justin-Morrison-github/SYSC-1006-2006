@@ -19,9 +19,24 @@ import CodeBox from "./CodeBox"
 import PopUp from './PopUp';
 import Gradeable from './Gradeable';
 import Footer from './Footer';
-// import CheckQuiz from './CheckQuiz';
+import Array from './Array';
+import LinkedList from './LinkedList';
+import CheckQuiz from './MultiQuiz';
 
 SyntaxHighlighter.registerLanguage('c', c);
+
+import colors from 'tailwindcss/colors';
+import Recurse from './Recurse';
+
+export function tailwindToHex(tailwindColor) {
+    const [color, shade] = tailwindColor.split("-");
+
+    // Handle special cases like `lightBlue` → `sky`, etc.
+    const twColor = colors[color];
+    if (!twColor || !twColor[shade]) return null;
+
+    return twColor[shade];
+}
 
 
 const customStyle = {
@@ -71,6 +86,9 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                 rehypePlugins={[rehypeRaw]}
                 remarkPlugins={[remarkGfm]}
                 components={{
+                    /* 
+                        Overiding existing html tags
+                    */
                     code: CodeBlock,
                     blockquote: ({ children }) => (
                         <div className="bg-zinc-800 border-l-4 border-yellow-500 p-4 rounded-md my-4 font-semibold text-blue-100">
@@ -83,18 +101,33 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     // em: ({ children }) => (
                     //     <strong className="text-blue-400 font-bold">{children}</strong>
                     // ),
+
+
+                    /*
+                        Making custom html tags
+                    */
+                    hl: ({ children, color = "blue-500", ...props }) => {
+                        const hex = tailwindToHex(color);
+                        return (
+                            <span style={{
+                                backgroundColor: hex, padding: "0 0.5em"
+                            }} {...props}>
+                                {children}
+                            </span>
+                        );
+                    },
                     ccoderunner: ({ node, ...props }) => {
                         return <CCodeRunner {...props} />;
                     },
                     quiz: ({ children, ...props }) => (
-                        <Quiz {...props}>{children}</Quiz>
+                        <Quiz {...props} slugs={slugs}>{children}</Quiz>
                     ),
                     dropquiz: ({ children, ...props }) => (
                         <DropQuiz {...props}>{children}</DropQuiz>
                     ),
-                    warning: ({ children, title }) => {
+                    warning: ({ children, title, notitle }) => {
                         return (
-                            <PopUp icon={AlertIcon} color={COLORS.warning} title={title || "Warning"}>
+                            <PopUp icon={AlertIcon} color={COLORS.warning} title={title || "Warning"} notitle={notitle}>
                                 {children}
                             </PopUp>
                         )
@@ -132,7 +165,7 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     },
                     exercise: ({ children, ...props }) => {
                         return (
-                            <Exercise {...props} color={COLORS.exercise}>
+                            <Exercise slugs={slugs} {...props} color={COLORS.exercise}>
                                 {children}
                             </Exercise>
                         )
@@ -149,19 +182,26 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     vquiz: ({ children, ...props }) => (
                         <VQuiz {...props}>{children}</VQuiz>
                     ),
-                    codebox: ({ children, ...props }) => {
-                        return (
-                            <CodeBox {...props} color={COLORS.exercise}>
-                                {children}
-                            </CodeBox>
-                        )
-                    },
-                    // checkquiz: ({ children, ...props }) => (
-                    //     <CheckQuiz {...props} slugs={slugs}></CheckQuiz>
-                    // ),
+                    codebox: ({ children, ...props }) => (
+                        <CodeBox {...props} color={COLORS.exercise}>
+                            {children}
+                        </CodeBox>
+                    ),
+                    recurse: ({ children, ...props }) => (
+                        <Recurse {...props}>{children}</Recurse>
+                    ),
+                    checkquiz: ({ children, ...props }) => (
+                        <CheckQuiz {...props} slugs={slugs}></CheckQuiz>
+                    ),
                     footer: ({ link, children, ...props }) => (
                         <Footer link={link} {...props}>{children}</Footer>
                     ),
+                    array: ({ children, ...props }) => (
+                        <Array {...props}>{children}</Array>
+                    ),
+                    linkedlist: ({ children, ...props }) => (
+                        <LinkedList {...props} >{children}</LinkedList>
+                    )
                 }}
             >
                 {content}
