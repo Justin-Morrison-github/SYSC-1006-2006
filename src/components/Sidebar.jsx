@@ -46,9 +46,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
                 </ul>
                 {/* <h2 className="text-xl font-bold mt-8 mb-4">Lectures</h2> */}
-                <button className='flex gap-2 mt-8 mb-2 items-center' onClick={() => setShowLectures((prev) => !prev)}>
+                <button className='flex gap-1 mt-8 mb-2 items-center' onClick={() => setShowLectures((prev) => !prev)}>
                     <span className="text-2xl font-bold text-[#3b82f6]" >Lectures</span>
-                    {showLectures ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+                    {showLectures ? <ChevronUp size={32} className='mt-2' /> : <ChevronDown size={32} className='mt-2' />}
                 </button>
                 {
                     showLectures && manifest.lectures.map((lecture) => (
@@ -71,9 +71,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     ))
                 }
 
-                <button className='flex gap-2 mt-8 mb-2 items-center' onClick={() => setShowExercises((prev) => !prev)}>
+                <button className='flex gap-1 mt-8 mb-2 items-center' onClick={() => setShowExercises((prev) => !prev)}>
                     <span className="text-2xl font-bold text-[#3b82f6]" >Exercises</span>
-                    {showLectures ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+                    {showExercises ? <ChevronUp size={32} className='mt-2' /> : <ChevronDown size={32} className='mt-2' />}
                 </button>
                 {
                     showExercises && manifest.exercises.map((exercise) => (
