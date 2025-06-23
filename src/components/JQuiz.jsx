@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CodeBox from './CodeBox';
 
 
-async function loadJson(lecture, file) {
+async function loadLectureJson(lecture, file) {
     try {
         const response = await fetch(`/content/lectures/${lecture}/${file}.json`);
         if (!response.ok) {
@@ -17,6 +17,20 @@ async function loadJson(lecture, file) {
     }
 }
 
+async function loadExerciseJson(exercise) {
+    try {
+        const response = await fetch(`/content/exercises/${exercise}.json`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data; // Return the parsed JS object
+    } catch (error) {
+        console.error('Error fetching or parsing JSON:', error);
+        return null;
+    }
+}
 
 export default function JQuiz({ question, onAnswerChange, slugs, exercisenumber }) {
     const [selected, setSelected] = useState(null);
@@ -29,13 +43,19 @@ export default function JQuiz({ question, onAnswerChange, slugs, exercisenumber 
 
     useEffect(() => {
         // Load JSON only once or when lecture/file/question change
-        loadJson(slugs?.lecture, slugs?.topic).then(data => {
-            const q = data[exercisenumber][question];
-            console.log('Loaded question:', q);
-            setParsedQuestion(q);
-
-        });
-    }, [question, exercisenumber]); // re-run if these change
+        if (slugs?.lecture !== undefined && slugs?.lectureTopic !== undefined) {
+            loadLectureJson(slugs?.lecture, slugs?.lectureTopic).then(data => {
+                const q = data[exercisenumber][question];
+                setParsedQuestion(q);
+            });
+        }
+        else if (slugs?.exercise !== undefined) {
+            loadExerciseJson(slugs?.exercise).then(data => {
+                const q = data[question];
+                setParsedQuestion(q);
+            });
+        }
+    }, [question, exercisenumber, slugs]); // re-run if these change
 
     const handleHintClick = () => {
         setGiveHint((prev) => !prev)

@@ -169,6 +169,10 @@
                 {
                     "slug": "getting-user-input",
                     "title": "Getting User Input"
+                },
+                {
+                    "slug": "c-standards",
+                    "title": "The C Standard"
                 }
             ]
         },
@@ -287,5 +291,24 @@
             ]
         }
     ],
-    "exercises": []
+    "exercises": [
+        {
+            "slug": "exercise1",
+            "title": "Exercise 1",
+            "lectures_covered": [
+                1,
+                2,
+                3
+            ]
+        },
+        {
+            "slug": "exercise2",
+            "title": "Exercise 2",
+            "lectures_covered": [
+                4,
+                5,
+                6
+            ]
+        }
+    ]
 }

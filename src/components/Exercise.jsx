@@ -6,10 +6,9 @@ import checkmarkAnimation from '../assets/animations/checkmark.json'
 const pop_up_style1 = "border-l-4 p-4 my-8 bg-zinc-800 rounded-md"
 const pop_up_style2 = "border-l-4 p-4 my-8 bg-zinc-900"
 
-export default function Exercise({ children, title, exercisenumber, dropdown = true, initialCollapsed = false, color, }) {
+export default function Exercise({ children, exercisenumber, dropdown = true, initialCollapsed = false, color, }) {
     const [collapsed, setCollapsed] = useState(initialCollapsed);
     const [correctMap, setCorrectMap] = useState({});
-
 
     const handleAnswerChange = (index, isCorrect) => {
         setCorrectMap(prev => ({
@@ -19,7 +18,7 @@ export default function Exercise({ children, title, exercisenumber, dropdown = t
     };
     const validChildren = React.Children.toArray(children).filter(isValidElement);
     const childrenWithAnswerChange = validChildren.filter(child =>
-        ["quiz", "dropquiz", "jquiz", "vjquiz", "fillblank"].includes(child.type.name)
+        ["quiz", "dropquiz", "jquiz", "vjquiz", "fillblank", "multiquiz"].includes(child.type.name)
     );
 
     const totalCount = childrenWithAnswerChange.length;
@@ -34,7 +33,7 @@ export default function Exercise({ children, title, exercisenumber, dropdown = t
                     {/* <div className='flex gap-4 items-center'> */}
                     <div className='grid grid-cols-[26px_160px_70px_200px_50px] gap-4 items-center text-left'>
                         <QuestionIcon size={26} />
-                        <strong>{title}</strong>
+                        <strong>Exercise Set {exercisenumber}</strong>
                         <div className='text-white'>
                             {correctCount} / {totalCount}
                         </div>

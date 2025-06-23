@@ -15,8 +15,8 @@ export default function App() {
           <Route path="/report-bug" element={<BugReport />} />
           <Route path="/" element={<Home />} />
           <Route path="/overview" element={<MarkdownPage type="overview" />} />
-          <Route path="/lectures/:lectureSlug/:topicSlug" element={<MarkdownPage />} />
-          <Route path="/exercises/:slug" element={<MarkdownPage type="exercises" />} />
+          <Route path="/lectures/:lectureSlug/:lectureTopicSlug" element={<MarkdownPage />} />
+          <Route path="/exercises/:exerciseSlug" element={<MarkdownPage type="exercises" />} />
         </Routes>
       </Layout>
     </Router>

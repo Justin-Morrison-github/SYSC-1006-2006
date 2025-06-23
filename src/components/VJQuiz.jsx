@@ -2,9 +2,24 @@ import React, { useState, useEffect, Children } from 'react';
 import CodeBox from './CodeBox';
 import { COLORS } from './MarkdownRenderer'
 
-async function loadJson(lecture, file) {
+async function loadLectureJson(lecture, file) {
     try {
         const response = await fetch(`/content/lectures/${lecture}/${file}.json`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data; // Return the parsed JS object
+    } catch (error) {
+        console.error('Error fetching or parsing JSON:', error);
+        return null;
+    }
+}
+
+async function loadExerciseJson(exercise) {
+    try {
+        const response = await fetch(`/content/exercises/${exercise}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -29,7 +44,7 @@ export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber
 
     useEffect(() => {
         if (hasAnswered && selected) {
-            const className = isCorrect ? 'bg-correct-sweep' : 'bg-error-gradient';
+            const className = isCorrect ? 'bg-correct-gradient' : 'bg-error-gradient';
             setAnimateClass(className);
 
             // Remove class after animation to prevent replay on re-show
@@ -43,12 +58,23 @@ export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber
 
     useEffect(() => {
         // Load JSON only once or when lecture/file/question change
-        loadJson(slugs?.lecture, slugs?.topic).then(data => {
-            const q = data[exercisenumber][question];
-            setParsedQuestion(q);
+        if (slugs?.lecture !== undefined && slugs?.lectureTopic !== undefined) {
+            loadLectureJson(slugs?.lecture, slugs?.lectureTopic).then(data => {
+                const q = data[exercisenumber][question];
+                console.log(q);
 
-        });
-    }, [question]); // re-run if these change
+                setParsedQuestion(q);
+            });
+        }
+        else if (slugs?.exercise !== undefined) {
+            loadExerciseJson(slugs?.exercise).then(data => {
+                const q = data[question];
+                setParsedQuestion(q);
+            });
+        }
+
+
+    }, [question, slugs]); // re-run if these change
 
     const handleHintClick = () => {
         setGiveHint((prev) => !prev)
