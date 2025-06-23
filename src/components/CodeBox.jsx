@@ -20,6 +20,9 @@ const customStyle = {
     // }
 };
 export default function CodeBox({ language, children, copy = "true" }) {
+    const cleanedChildren = children?.replace(/^\n/, '');
+
+
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
         navigator.clipboard.writeText(children).then(() => {
@@ -42,8 +45,8 @@ export default function CodeBox({ language, children, copy = "true" }) {
                 )
             }
 
-            <SyntaxHighlighter language={language} style={customStyle} wrapLines>
-                {children}
+            <SyntaxHighlighter language={language} style={customStyle} wrapLines >
+                {cleanedChildren}
             </SyntaxHighlighter>
         </div>
     );
