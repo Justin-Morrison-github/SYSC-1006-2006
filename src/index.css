@@ -78,3 +78,16 @@
 .bg-correct-gradient {
     animation: pulse-correct 0.6s forwards;
 }
+
+
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
