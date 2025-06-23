@@ -9,11 +9,11 @@ export default function BugReport() {
             >
                 <textarea
                     name="message"
-                    className="w-full p-2 border border-gray-300 rounded-md min-h-[150px] text-black"
-                    placeholder="Describe the bug..."
+                    className="w-full p-2 border border-gray-300 rounded-md min-h-[150px] text-white bg-slate-900"
+                    placeholder="Describe the bug (If possible provide steps to reproduce)"
                     required
                 />
-                <input type="email" name="email" placeholder="Your email (optional)" className="p-2 border border-gray-300 rounded-md text-black" />
+                <input type="email" name="email" placeholder="Your email (optional)" className="p-2 border border-gray-300 rounded-md text-white bg-slate-900" />
                 <button
                     type="submit"
                     className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
