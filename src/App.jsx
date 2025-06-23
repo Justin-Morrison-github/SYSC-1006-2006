@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import MarkdownPage from './components/MarkdownPage';
 import 'github-markdown-css/github-markdown.css';
 import ScrollToTop from './components/ScrollToTop';
+import BugReport from './components/BugReport';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <ScrollToTop />
       <Layout>
         <Routes>
+          <Route path="/report-bug" element={<BugReport />} />
           <Route path="/" element={<Home />} />
           <Route path="/overview" element={<MarkdownPage type="overview" />} />
           <Route path="/lectures/:lectureSlug/:topicSlug" element={<MarkdownPage />} />

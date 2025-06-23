@@ -38,6 +38,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 <ul className="space-y-2">
                     <li><Link to="/" onClick={() => setSidebarOpen(false)}>Home</Link></li>
                     <li><Link to="/overview" onClick={() => setSidebarOpen(false)}>Course Overview</Link></li>
+                    <li><Link to="/report-bug" onClick={() => setSidebarOpen(false)}>Report a Bug</Link></li>
                     {/* Add more global links here */}
                 </ul>
                 <h2 className="text-xl font-bold mt-8 mb-4">Lectures</h2>
