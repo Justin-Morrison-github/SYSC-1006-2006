@@ -6,6 +6,16 @@ An expression is any line of code that produces a value.
 
 <!-- > An expression is any line of code that produces a value.  -->
 
+<exercise exercisenumber="3">
+
+<checkquiz question="1">
+</checkquiz>
+
+<!-- <VJQuiz question="1">
+</VJQuiz> -->
+
+</exercise>
+
 
 An expression is made of operands and operators. Those operators can be mathematical (+, -, /, *), logical (&&, ||, !), or any mix of both. Expresions are typically used to assign the result of operations to a varible or to use that result as a condition in a control flow statement (if, for, while, etc).
 

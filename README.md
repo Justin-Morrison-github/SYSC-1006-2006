@@ -30,3 +30,5 @@ My plan right now is to provide:
     - Pop quiz style questions in the notes
     - Longer coding questions where I run tests to validate your code ?
 - Live takeup sessions/talk throughs?
+
+I have to give credit to Dr Lynn Marshall and Dr Ruiz Martin from Carleton University. I have structured the content of this project around the slides they created for this course.

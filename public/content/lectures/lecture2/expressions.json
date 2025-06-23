@@ -102,5 +102,23 @@
             "hint": "What happens when one operand of a division is a floating point number in C?",
             "type": "jquiz"
         }
+    },
+    "3": {
+        "1": {
+            "question": "Which statements are correct?",
+            "options": [
+                "A float is the most precise data type in C.",
+                "When converting from a floating point to an int, values are not rounded, they are truncated",
+                "A function can only ever return one entity.",
+                "C has a built in pow() function."
+            ],
+            "answer": [
+                1,
+                2
+            ],
+            "code": "int x = 4.5 + 0.4;",
+            "hint": "Hint",
+            "type": "checkquiz"
+        }
     }
 }
