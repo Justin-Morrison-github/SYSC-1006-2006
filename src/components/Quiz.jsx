@@ -24,7 +24,7 @@ export default function Quiz({ type, question, onAnswerChange, slugs, exercisenu
         )
     }
 
-    else if (type.startsWith("drop")) {
+    else if (type?.startsWith("drop")) {
         return (
             <DropQuiz type={type} question={question} onAnswerChange={onAnswerChange} slugs={slugs} exercisenumber={exercisenumber} />
         )
