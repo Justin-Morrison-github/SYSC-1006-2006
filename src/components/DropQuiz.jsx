@@ -9,7 +9,8 @@ export default function DropQuiz({ type, question, title, onAnswerChange, slugs,
 
     const [collapsed, setCollapsed] = useState(true);
 
-    const [__, subType] = type.split("-")
+
+    const [__, subType] = type ? type.split("-") : [null, null]
     let quiz = null;
 
     if (subType === "vertical") {
