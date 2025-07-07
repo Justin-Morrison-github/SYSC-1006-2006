@@ -18,7 +18,7 @@ export default function Exercise({ children, exercisenumber, dropdown = true, in
     };
     const validChildren = React.Children.toArray(children).filter(isValidElement);
     const childrenWithAnswerChange = validChildren.filter(child =>
-        ["quiz", "dropquiz", "jquiz", "vjquiz", "fillblank", "multiquiz"].includes(child.type.name)
+        ["quiz", "dropquiz", "jquiz", "vjquiz", "fillblank", "jfillblank", "multiquiz"].includes(child.type.name)
     );
 
     const totalCount = childrenWithAnswerChange.length;

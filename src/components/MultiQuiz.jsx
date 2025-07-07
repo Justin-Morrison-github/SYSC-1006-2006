@@ -2,37 +2,8 @@ import { useState, useEffect } from 'react';
 import CodeBox from './CodeBox';
 import { COLORS } from './MarkdownRenderer'
 import { Circle, Check, X } from "lucide-react";
-
-
-async function loadLectureJson(lecture, file) {
-    try {
-        const response = await fetch(`/content/lectures/${lecture}/${file}.json`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data; // Return the parsed JS object
-    } catch (error) {
-        console.error('Error fetching or parsing JSON:', error);
-        return null;
-    }
-}
-
-async function loadExerciseJson(exercise) {
-    try {
-        const response = await fetch(`/content/exercises/${exercise}.json`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data; // Return the parsed JS object
-    } catch (error) {
-        console.error('Error fetching or parsing JSON:', error);
-        return null;
-    }
-}
+import { useJSONLoad } from './JsonUtils';
+import Hint from './Hint';
 
 function arraysEqual(a, b) {
     return (
@@ -43,45 +14,21 @@ function arraysEqual(a, b) {
     );
 }
 
-export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenumber }) {
+
+export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenumber, formattitle }) {
     const [selected, setSelected] = useState([]);
-    const [parsedQuestion, setParsedQuestion] = useState(null);
-    const [giveHint, setGiveHint] = useState(false);
-    const isCorrect = selected !== null && selected === parsedQuestion?.answer;
+    const loadQuestion = useJSONLoad({ slugs, exercisenumber, question });
+    const isCorrect = selected !== null && selected === loadQuestion.parsedQuestion?.answer;
     const [animationKey, setAnimationKey] = useState(0);
-    const [hasAnswered, setHasAnswered] = useState(false);
     const [animateClass, setAnimateClass] = useState('');
     const [submitted, setSubmitted] = useState(false);
-    const [correct, setCorrect] = useState(false)
-
-
-    useEffect(() => {
-        if (slugs?.lecture !== undefined && slugs?.lectureTopic !== undefined) {
-            loadLectureJson(slugs?.lecture, slugs?.lectureTopic).then(data => {
-                const q = data[exercisenumber][question];
-                setParsedQuestion(q);
-            });
-        }
-        else if (slugs?.exercise !== undefined) {
-            loadExerciseJson(slugs?.exercise).then(data => {
-                const q = data[question];
-                setParsedQuestion(q);
-            });
-        }
-    }, [question, slugs]); // re-run if these change
-
-    const handleHintClick = () => {
-        setGiveHint((prev) => !prev)
-    }
 
     const handleClick = (selectedIndex) => {
-
         setSelected((prev) =>
             prev.includes(selectedIndex)
                 ? prev.filter((item) => item !== selectedIndex)
                 : [...prev, selectedIndex]
         );
-
 
         if (!isCorrect) {
             setAnimationKey((k) => k + 1); // bump key to remount animation div
@@ -90,14 +37,9 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
 
     const handleSubmit = () => {
         // Notify parent about correctness change
-        const newCorrect = arraysEqual(selected, parsedQuestion?.answer);
-        setCorrect(newCorrect)
+        const newCorrect = arraysEqual(selected, loadQuestion.parsedQuestion?.answer);
 
         if (onAnswerChange) {
-            console.log(selected);
-            console.log(parsedQuestion?.answer);
-            console.log(newCorrect);
-
             onAnswerChange(newCorrect);
         }
 
@@ -106,22 +48,24 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
             if (onAnswerChange) {
                 onAnswerChange(false)
             }
-            setCorrect(false)
         }
 
         setSubmitted(!submitted)
+
+        const className = newCorrect ? 'bg-correct-gradient' : 'bg-error-gradient';
+        setAnimateClass(className);
+
+        // Remove class after animation to prevent replay on re-show
+        if (className !== "bg-correct-sweep" && className !== "bg-correct-gradient") {
+            const timeout = setTimeout(() => setAnimateClass(''), 600);
+            return () => clearTimeout(timeout);
+        }
     }
 
-
-
-    if (parsedQuestion === undefined) {
+    if (loadQuestion.parsedQuestion === undefined) {
         return (
-            <div className='markdown-body rounded-md mt-2'>
-                <div className="markdown-body px-4 py-2 border border-slate-500 rounded-md">
-                    <div>
-                        Question {question} Not Found
-                    </div>
-                </div>
+            <div className='markdown-body rounded-md mt-2 px-4 py-2 border border-slate-500 rounded-md'>
+                Question {question} Not Found
             </div>
         )
     }
@@ -129,35 +73,35 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
     return (
         <div className='markdown-body my-4 rounded-md'>
             <div key={animationKey}
-                className={`transition-all duration-1000  px-4 py-2 border border-slate-500 rounded-md 
-                    ${correct ? "bg-correct-gradient" : ""}`}
+                className={`transition-all duration-1000 px-4 py-2 border border-slate-500 rounded-md 
+                    ${animateClass}`}
             >
-                <div className='flex gap-2 justify-left items-center pt-2 ml-2 border-b-2 w-max mb-1'
+                <div className='flex gap-4 justify-left items-center pt-2 ml-2 border-b-2 w-max mb-1 text-white'
                     style={{ borderColor: COLORS.exercise }}>
 
-                    <div className={`text-bold text-2xl text-white`} >
-                        {exercisenumber}.{question}
+                    <div className={`text-bold text-2xl`}>
+                        {formattitle ? `${exercisenumber}.${question}` : `${question}.`}
                     </div>
 
-                    <div className='text-2xl text-white' >
-                        {parsedQuestion?.question}
+                    <div className='text-2xl' >
+                        {loadQuestion.parsedQuestion?.question}
                     </div>
                 </div>
 
                 <div className='flex flex-col gap-2 w-max p-2' >
                     {
-                        parsedQuestion?.code && (
+                        loadQuestion.parsedQuestion?.code && (
                             <div className='my-1'>
                                 <CodeBox language='c' copy="false" className>
-                                    {parsedQuestion?.code}
+                                    {loadQuestion.parsedQuestion?.code}
                                 </CodeBox>
                             </div>
                         )
                     }
 
                     <div className="flex flex-col gap-3 w-max" key={animationKey}>
-                        {parsedQuestion &&
-                            parsedQuestion?.options.map((opt, index) => {
+                        {loadQuestion.parsedQuestion &&
+                            loadQuestion.parsedQuestion?.options.map((opt, index) => {
                                 return (
                                     <div key={index} className='flex gap-4 '>
                                         <button className="relative w-10 h-10 flex items-center justify-center" disabled={submitted}
@@ -169,7 +113,7 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
                                                 onClick={() => handleClick(index)}
                                             />
                                             {submitted && (
-                                                parsedQuestion?.answer.includes(index) && selected.includes(index) || !parsedQuestion?.answer.includes(index) && !selected.includes(index) ? (
+                                                loadQuestion.parsedQuestion?.answer.includes(index) && selected.includes(index) || !loadQuestion.parsedQuestion?.answer.includes(index) && !selected.includes(index) ? (
                                                     <Check size={20} className="absolute text-green-500" />
                                                 ) : (
                                                     <X size={20} className="absolute text-red-500" />
@@ -177,12 +121,11 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
                                             )}
                                         </button>
 
-
                                         <button
                                             disabled={submitted}
                                             onClick={() => handleClick(index)}
                                             className={`px-4 py-2 rounded border cursor-pointer w-full
-                                            ${submitted ? parsedQuestion?.answer.includes(index) && selected.includes(index) || !parsedQuestion?.answer.includes(index) && !selected.includes(index) ? "text-black border-green-500 bg-green-400" : "text-black border-red-500 bg-red-400" : selected.includes(index) ? "bg-[#113e6c]" : "border-gray-300 bg-slate-900 text-white"}
+                                            ${submitted ? loadQuestion.parsedQuestion?.answer.includes(index) && selected.includes(index) || !loadQuestion.parsedQuestion?.answer.includes(index) && !selected.includes(index) ? "text-black border-green-500 bg-green-400" : "text-black border-red-500 bg-red-400" : selected.includes(index) ? "bg-[#113e6c]" : "border-gray-300 bg-slate-900 text-white"}
                                             `}
                                         >
                                             <div className='flex justify-start items-center relative inline-block'>
@@ -190,7 +133,7 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
 
                                                 {selected === opt && (
                                                     <div className="absolute left-full top-0 ml-[30px] text-white text-left w-max">
-                                                        {isCorrect ? '✅' : '❌'} {parsedQuestion?.options[selected] || "Incorrect"}
+                                                        {isCorrect ? '✅' : '❌'} {loadQuestion.parsedQuestion?.options[selected] || "Incorrect"}
                                                     </div>
                                                 )}
                                             </div>
@@ -201,7 +144,7 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
                             })}
                         <div className="relative w-full">
                             {
-                                parsedQuestion && (
+                                loadQuestion.parsedQuestion && (
                                     <button className='text-white/80 text-left w-full text-center hover:bg-slate-800 rounded bg-slate-700 text-white border p-2 h-full'
                                         onClick={handleSubmit}
                                     >
@@ -211,22 +154,7 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
                             }
                         </div>
 
-                        <div className="relative">
-                            {
-                                parsedQuestion && parsedQuestion?.hint && (
-                                    <button className='text-white/80 text-left rounded hover:bg-slate-800 h-full'
-                                        onClick={handleHintClick}
-                                    >
-                                        {giveHint ? "Hide" : "Hint"}
-                                    </button>
-                                )
-                            }
-                            {
-                                giveHint && (
-                                    <div className='absolute left-10 top-0 ml-[10px] text-yellow-400 w-max'>{parsedQuestion?.hint}</div>
-                                )
-                            }
-                        </div>
+                        <Hint type={"multiquiz"} hint={loadQuestion?.parsedQuestion?.hint} />
                     </div>
 
                 </div>

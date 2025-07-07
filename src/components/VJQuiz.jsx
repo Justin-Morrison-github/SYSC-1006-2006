@@ -1,183 +1,139 @@
-import React, { useState, useEffect, Children } from 'react';
+import { useState } from 'react';
 import CodeBox from './CodeBox';
 import { COLORS } from './MarkdownRenderer'
+import { useJSONLoad } from './JsonUtils';
+import Hint from './Hint';
 
-async function loadLectureJson(lecture, file) {
-    try {
-        const response = await fetch(`/content/lectures/${lecture}/${file}.json`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data; // Return the parsed JS object
-    } catch (error) {
-        console.error('Error fetching or parsing JSON:', error);
-        return null;
+function indexToLetter(index) {
+    if (index < 0 || index > 25) {
+        throw new Error("Index must be between 0 and 25.");
     }
+    return String.fromCharCode('A'.charCodeAt(0) + index);
 }
 
-async function loadExerciseJson(exercise) {
-    try {
-        const response = await fetch(`/content/exercises/${exercise}.json`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber, showletters = true, formattitle = false }) {
+    const loadQuestion = useJSONLoad({ slugs, exercisenumber, question });
 
-        const data = await response.json();
-        return data; // Return the parsed JS object
-    } catch (error) {
-        console.error('Error fetching or parsing JSON:', error);
-        return null;
-    }
-}
-
-
-export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber }) {
     const [selected, setSelected] = useState(null);
-    const [parsedQuestion, setParsedQuestion] = useState(null);
-    const [giveHint, setGiveHint] = useState(false);
-    const isCorrect = selected !== null && selected === parsedQuestion?.answer;
     const [animationKey, setAnimationKey] = useState(0);
-    const [hasAnswered, setHasAnswered] = useState(false);
     const [animateClass, setAnimateClass] = useState('');
-
-    useEffect(() => {
-        if (hasAnswered && selected) {
-            const className = isCorrect ? 'bg-correct-gradient' : 'bg-error-gradient';
-            setAnimateClass(className);
-
-            // Remove class after animation to prevent replay on re-show
-            if (className !== "bg-correct-sweep" && className !== "bg-correct-gradient") {
-                const timeout = setTimeout(() => setAnimateClass(''), 600);
-                return () => clearTimeout(timeout);
-            }
-        }
-    }, [hasAnswered, selected]);
-
-
-    useEffect(() => {
-        // Load JSON only once or when lecture/file/question change
-        if (slugs?.lecture !== undefined && slugs?.lectureTopic !== undefined) {
-            loadLectureJson(slugs?.lecture, slugs?.lectureTopic).then(data => {
-                const q = data[exercisenumber][question];
-                console.log(q);
-
-                setParsedQuestion(q);
-            });
-        }
-        else if (slugs?.exercise !== undefined) {
-            loadExerciseJson(slugs?.exercise).then(data => {
-                const q = data[question];
-                setParsedQuestion(q);
-            });
-        }
-
-
-    }, [question, slugs]); // re-run if these change
-
-    const handleHintClick = () => {
-        setGiveHint((prev) => !prev)
-    }
+    const [isCorrect, setIsCorrect] = useState(false);
 
     const handleClick = (opt) => {
         let newSelected = opt === selected ? null : opt;
         setSelected(newSelected);
-        setHasAnswered(true);
 
-        if (!isCorrect) {
-            setAnimationKey((k) => k + 1); // bump key to remount animation div
-        }
+        const newCorrect = newSelected === loadQuestion?.parsedQuestion?.answer
+        setIsCorrect(newCorrect)
 
         // Notify parent about correctness change
         if (onAnswerChange) {
-            onAnswerChange(newSelected === parsedQuestion?.answer);
+            onAnswerChange(newCorrect);
+        }
+        if (!newCorrect && newSelected !== null) {
+            setAnimationKey((k) => k + 1); // bump key to remount animation div
+        }
+
+        if (newSelected === null) {
+            setAnimateClass('');
+            return
+        }
+
+        const className = newCorrect ? 'bg-correct-gradient' : 'bg-error-gradient';
+        setAnimateClass(className);
+
+        // Remove class after animation to prevent replay on re-show
+        if (className !== "bg-correct-sweep" && className !== "bg-correct-gradient") {
+            const timeout = setTimeout(() => setAnimateClass(''), 600);
+            return () => clearTimeout(timeout);
         }
     };
 
-    if (parsedQuestion === undefined) {
+    if (loadQuestion?.parsedQuestion === undefined) {
         return (
-            <div className='markdown-body rounded-md mt-2'>
-                <div className="markdown-body px-4 py-2 border border-slate-500 rounded-md">
-                    <div>
-                        Question {question} Not Found
-                    </div>
-                </div>
+            <div className='markdown-body mt-2 px-4 py-2 border border-slate-500 rounded-md'>
+                Error: Question {question} Not Found
             </div>
         )
     }
+
+    const OptionButton = ({ opt }) => (
+        <button
+            key={opt}
+            onClick={() => handleClick(opt)}
+            className={` px-6 py-2 rounded-r border cursor-pointer w-full h-10 
+                ${selected === opt
+                    ? `text-black ${opt === loadQuestion?.parsedQuestion?.answer ? 'border-black bg-green-400' : ' border-black bg-red-400'}`
+                    : 'border-gray-300 bg-slate-900 text-white'}
+                                        `}>
+            <div className='flex justify-center items-center relative inline-block'>
+                <div>
+                    {opt}
+                </div>
+
+                {selected === opt && (
+                    <div className="absolute left-full top-0 ml-[30px] text-white text-left w-max">
+                        {isCorrect ? '✅' : '❌'} {loadQuestion?.parsedQuestion?.options[selected] || "Incorrect"}
+                    </div>
+                )}
+            </div>
+        </button>
+    )
+
+    const OptionLetter = ({ opt, index }) => {
+        return showletters ? (
+            <div className={`text-xl w-10 h-10 border rounded-l ${selected === opt
+                ? `text-black ${opt === loadQuestion?.parsedQuestion?.answer ? 'border-black bg-green-400' : ' border-black bg-red-400'}`
+                : 'border-gray-300 bg-slate-900 text-white'}`}>
+                <div className={`text-xl w-10 h-full rounded-l flex justify-center items-center`}>
+                    {indexToLetter(index)}
+                </div>
+            </div>
+        ) : null
+    }
+
+    const Option = ({ opt, index }) => (
+        <div key={opt} className='flex items-center'>
+            <OptionLetter opt={opt} index={index} />
+            <OptionButton opt={opt} />
+        </div>
+    )
+
 
     return (
         <div className='markdown-body my-4 rounded-md'>
             <div key={animationKey}
                 className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md ${animateClass}`}
             >
-                <div className='flex gap-2 justify-left items-center pt-2 ml-2 border-b w-max'
+                <div className='flex gap-4 justify-left items-center pt-2 ml-2 border-b-2  w-max'
                     style={{ borderColor: COLORS.exercise }}>
 
                     <div className={`text-bold text-2xl`} style={{ color: "white" }}>
-                        {exercisenumber}.{question}
+                        {formattitle ? `${exercisenumber}.${question}` : `${question}.`}
                     </div>
 
                     <div className='text-2xl' style={{ color: "white" }}>
-                        {parsedQuestion?.question}
+                        {loadQuestion?.parsedQuestion?.question}
                     </div>
                 </div>
 
                 <div className='flex flex-col gap-2 w-max p-2' >
+                    {loadQuestion?.parsedQuestion?.code &&
+                        <CodeBox language='c' copy="false">
+                            {loadQuestion?.parsedQuestion?.code}
+                        </CodeBox>
+                    }
 
-                    <CodeBox language='c' copy="false">
-                        {parsedQuestion?.code}
-                    </CodeBox>
+                    <div className={`flex flex-col gap-3 w-max ${loadQuestion?.parsedQuestion?.code ? "" : "mt-2"}`} key={animationKey}>
+                        {
+                            loadQuestion?.parsedQuestion &&
+                            Object.entries(loadQuestion?.parsedQuestion?.options).map(([opt, _], index) => (
+                                <Option opt={opt} index={index} key={index} />
+                            ))
+                        }
 
-                    <div className="flex flex-col gap-3 w-max" key={animationKey}>
-                        {parsedQuestion &&
-                            Object.entries(parsedQuestion?.options).map(([opt, _]) => {
-                                return (
-                                    <button
-                                        key={opt}
-                                        onClick={() => handleClick(opt)}
-                                        className={`
-                                        px-6 py-2 rounded border cursor-pointer w-full
-                                        ${selected === opt
-                                                ? `text-black ${opt === parsedQuestion?.answer ? 'border-green-500 bg-green-400' : 'border-red-500 bg-red-400'}`
-                                                : 'border-gray-300 bg-slate-900 text-white'}
-                                      `}
-                                    >
-                                        <div className='flex justify-center items-center relative inline-block'>
-                                            <div>
-
-                                                {opt}
-                                            </div>
-
-                                            {selected === opt && (
-                                                <div className="absolute left-full top-0 ml-[30px] text-white text-left w-max">
-                                                    {isCorrect ? '✅' : '❌'} {parsedQuestion?.options[selected] || "Incorrect"}
-                                                </div>
-                                            )}
-                                        </div>
-
-                                    </button>
-                                );
-                            })}
-                        <div className=" relative inline-block w-full">
-                            {
-                                parsedQuestion && parsedQuestion?.hint && (
-                                    <button className='text-white/80 text-center rounded hover:bg-slate-800 h-full w-full'
-                                        onClick={handleHintClick}
-                                    >
-                                        {giveHint ? "Hide" : "Hint"}
-                                    </button>
-                                )
-                            }
-                            {
-                                giveHint && (
-                                    <div className='absolute left-full top-0 ml-[10px] text-yellow-400 w-max'>{parsedQuestion?.hint}</div>
-                                )
-                            }
-                        </div>
+                        <Hint type={"vjquiz"} hint={loadQuestion?.parsedQuestion?.hint} />
                     </div>
-
                 </div>
             </div>
         </div>

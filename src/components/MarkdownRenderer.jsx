@@ -20,12 +20,15 @@ import Gradeable from './Gradeable';
 import Footer from './Footer';
 import Array from './Array';
 import LinkedList from './LinkedList';
-import CheckQuiz from './MultiQuiz';
+import multiquiz from './MultiQuiz';
 
 SyntaxHighlighter.registerLanguage('c', c);
 
 import colors from 'tailwindcss/colors';
 import Recurse from './Recurse';
+import FillCode from './FIllCode';
+import MultiQuiz from './MultiQuiz';
+import JFillInTheBlank from './JFillInTheBlank';
 
 export function tailwindToHex(tailwindColor) {
     const [color, shade] = tailwindColor.split("-");
@@ -162,6 +165,11 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                             </FillInTheBlank>
                         )
                     },
+                    jfillblank: ({ children, ...props }) => (
+                        <JFillInTheBlank slugs={slugs} {...props}>
+                            {children}
+                        </JFillInTheBlank>
+                    ),
                     exercise: ({ children, ...props }) => {
                         return (
                             <Exercise slugs={slugs} {...props} color={COLORS.exercise}>
@@ -186,8 +194,8 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     recurse: ({ children, ...props }) => (
                         <Recurse {...props}>{children}</Recurse>
                     ),
-                    checkquiz: ({ children, ...props }) => (
-                        <CheckQuiz {...props} slugs={slugs}></CheckQuiz>
+                    multiquiz: ({ children, ...props }) => (
+                        <MultiQuiz {...props} slugs={slugs}></MultiQuiz>
                     ),
                     footer: ({ link, children, ...props }) => (
                         <Footer link={link} {...props}>{children}</Footer>
@@ -197,6 +205,9 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     ),
                     linkedlist: ({ children, ...props }) => (
                         <LinkedList {...props} >{children}</LinkedList>
+                    ),
+                    fillcode: ({ children, ...props }) => (
+                        <FillCode {...props}> {children} </FillCode>
                     )
                 }}
             >
