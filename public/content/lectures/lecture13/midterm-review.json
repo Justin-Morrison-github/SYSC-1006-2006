@@ -1,0 +1,207 @@
+{
+    "A": {
+        "1": {
+            "question": "What does this print?",
+            "options": {
+                "/-/'\\\"//": "",
+                "/-\\'\"//": "Correct",
+                "/-\\\\'\\\"//": "",
+                "/-\\'\\\"/": ""
+            },
+            "answer": "/-\\'\"//",
+            "code": "printf(\"/-\\\\\\'\\\"//\");",
+            "hint": "What is special about '\\'?",
+            "type": "vjquiz"
+        },
+        "2": {
+            "question": "What term describes C the best?",
+            "options": {
+                "Object Oriented": "",
+                "Data Oriented": "",
+                "Imperative": "Correct!",
+                "Declarative": ""
+            },
+            "answer": "Imperative",
+            "hint": "",
+            "type": "vjquiz"
+        },
+        "3": {
+            "question": "What is the syntax to add a header (.h) in C?",
+            "options": {
+                "include": "Missing the # symbol",
+                "#import": "The # symbol is correct, but import is not the keyword.",
+                "import": "This is how to import in Python, not C",
+                "#include": "Correct"
+            },
+            "answer": "#include",
+            "code": "______<stdio.h>",
+            "hint": "What does the # symbol do?",
+            "type": "vjquiz"
+        },
+        "4": {
+            "question": "Which are valid ways to write comments in C?",
+            "options": [
+                "//",
+                "\\\\",
+                "#",
+                "/* */",
+                "\\*",
+                "\\* *\\"
+            ],
+            "answer": [
+                0,
+                3
+            ],
+            "hint": "There are only 2 correct options.",
+            "type": "multiquiz"
+        },
+        "5": {
+            "question": "What is printed?",
+            "code": "float x = 10 / 4;\nint y = (int) x;\nprintf(\"%4.2f, %d\", x, y)",
+            "options": {
+                "2.50, 2.0": "y is an int, so it won't be printed with a decimal portion",
+                "2.500, 2": "%4.2 specifies that the value of x will be printed with a width of 4 characters (The decimal point counts as a character). So x is printed with one too many characters.",
+                "2.50, 2": "Correct",
+                "2.500, 3": "%4.2 specifies that the value of x will be printed with a width of 4 characters (The decimal point counts as a character). Also, y will be truncated to, not rounded to 3."
+            },
+            "answer": "2.50, 2",
+            "hint": "The formatting for printf is: %[width][.precision]specifier.",
+            "type": "vjquiz"
+        },
+        "6": {
+            "question": "What is printed? (The underscore _ represent a blank space).",
+            "code": "float f = 24.12368;\nprintf(\"%7.3f\", f)",
+            "options": {
+                "_24.124": "Correct. The value will be printed with a space out front and be rounded to 3 decimals.",
+                "24.12468": "The precision (3 decimal points) will take precedence over the width (7 character spaces).",
+                "_24.1247": "The decimal point is counted in the width total.",
+                "_24.123": "The value is rounded, not truncated"
+            },
+            "answer": "_24.124",
+            "hint": "The formatting for printf is: %[width][.precision]specifier.",
+            "type": "vjquiz"
+        },
+        "7": {
+            "question": "Which are these data type qualifiers are valid?",
+            "options": [
+                "long double",
+                "short float",
+                "unsigned",
+                "signed long int",
+                "int",
+                "long float",
+                "unsigned short double",
+                "unsigned short",
+                "long long int"
+            ],
+            "answer": [
+                0,
+                2,
+                3,
+                4,
+                7,
+                8
+            ],
+            "hint": "There are only 2 correct options.",
+            "type": "multiquiz"
+        },
+        "8": {
+            "question": "C supports dynamic typing",
+            "options": {
+                "True": "Incorrect. C does not support dynamic typing, you must provide the type of variables when they are declared.",
+                "False": "Correct. C is statically typed."
+            },
+            "answer": "False",
+            "hint": "is C like Python?",
+            "type": "vjquiz"
+        },
+        "9": {
+            "question": "Is this valid C?",
+            "code": "int x = 1 + '2';",
+            "options": {
+                "True": "Correct. The ASCII number that represents the character '2', which is 50, will be added to 1. C treats chars like ints in arthimetic operations with ints.",
+                "False": "Incorrect"
+            },
+            "answer": "True",
+            "hint": "What is ASCII?",
+            "type": "vjquiz"
+        },
+        "10": {
+            "question": "",
+            "options": {
+                "A": "Incorrect. C does not support dynamic typing, you must provide the type of variables when they are declared.",
+                "B": "Correct. C is statically typed."
+            },
+            "answer": "",
+            "hint": "",
+            "type": "vjquiz"
+        }
+    },
+    "B": {
+        "1": {
+            "question": "What is x?",
+            "options": {
+                "4.9": "x is int, it can't have a decimal part",
+                "5": "When converting from a floating point to an int, values are not rounded, they are truncated.",
+                "4.0": "Right magnitude, but ints can not have a decimal part.",
+                "4": "Correct"
+            },
+            "answer": "4",
+            "code": "int x = 4.5 + 0.4;",
+            "hint": "Do ints get rounded or are they treated differently?",
+            "type": "jquiz"
+        },
+        "2": {
+            "question": "What is printed?",
+            "code": "// Hint: '1' = 49 in ASCII \nint x = 2;\nint y = x * '2' + '3';\nint z = x * 5 + y + '2' / '3';\nprintf(\"%d\", z);",
+            "options": {},
+            "answer": "161",
+            "hint": "What is ASCII?",
+            "type": "fillblank"
+        },
+        "3": {
+            "question": "What is the output of this C code?",
+            "options": {
+                "3": "Correct",
+                "2": "",
+                "3.0": "Almost, but both operands are ints, so the result is an int, not a floating point number",
+                "4": ""
+            },
+            "answer": "3",
+            "code": "int x = 6;\nprintf(\"%d\\n\", x / 2);",
+            "hint": "How is integer division treated in C?",
+            "type": "jquiz"
+        },
+        "4": {
+            "question": "What is the output of this C code?",
+            "options": {
+                "3": "Now one of the operands is a floating, so the result is also a floating point number",
+                "2": "",
+                "3.0": "Correct",
+                "4": ""
+            },
+            "answer": "3.0",
+            "code": "float x = 6;\nprintf(\"%d\\n\", x / 2);",
+            "hint": "What happens when one operand of a division is a floating point number in C?",
+            "type": "jquiz"
+        }
+    },
+    "C": {
+        "1": {
+            "question": "Which statements are correct?",
+            "options": [
+                "A float is the most precise data type in C.",
+                "When converting from a floating point to an int, values are not rounded, they are truncated",
+                "A function can only ever return one entity.",
+                "C has a built in pow() function."
+            ],
+            "answer": [
+                1,
+                2
+            ],
+            "code": "int x = 4.5 + 0.4;",
+            "hint": "Hint",
+            "type": "multiquiz"
+        }
+    }
+}
