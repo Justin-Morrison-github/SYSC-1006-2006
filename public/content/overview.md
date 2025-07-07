@@ -2,27 +2,16 @@
 Course Overview
 </title>
 
-<strong>This text is important!</strong>
-
-<i>This text is italic</i>
+<strong>This text is strong!</strong>
 
 <em>This text is emphasized</em>
 
-<small>This is some smaller text.</small>
+<p>This text is <mark>marked</mark></p>
 
-<p>Do not forget to buy <mark>milk</mark> today.</p>
+<code>This is code</code>
 
-<p>My favorite color is <del>blue</del> red.</p>
-
-<p>My favorite color is <del>blue</del> <ins>red</ins>.</p>
-
-<p>This is <sub>subscripted</sub> text.</p>
-
-<p>This is <sup>superscripted</sup> text.</p>
-
-
-The general idea of this project is to mostly mirror what you are seeing in lectures, but in a more condensed and more personalized to what I think is important. I have also embedded a few interactive elements into the lecture notes. This is pop-quiz style question you may see in the notes.
-
+The general idea of this project is to mostly mirror what you are seeing in lectures, but in a more condensed and more personalized to what I think is important. I have also embedded a few interactive elements into the lecture notes. 
+<!-- 
 <Quiz title="2.1" question="Is this valid C code?" options="{True:'No, there are no semicolons', False:'Correct!'}" correct="False">
 
 ```c
@@ -39,7 +28,7 @@ Or maybe a drop down quiz like this. Click the arrow to collapse/expand the elem
 
 
 <DropQuiz title="Quiz" question="Which of loops is *not* supported by C" options="{for:'Incorrect', while:'Incorrect', foreach:'Correct', 'do while':'Incorrect'}" correct="foreach" hint="Does C let you loop over a list like python (for x in ___)?">
-</DropQuiz>
+</DropQuiz> -->
 
 
 ## Information
