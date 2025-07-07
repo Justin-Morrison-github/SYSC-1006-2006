@@ -118,7 +118,7 @@
             ],
             "code": "int x = 4.5 + 0.4;",
             "hint": "Hint",
-            "type": "checkquiz"
+            "type": "multiquiz"
         }
     }
 }

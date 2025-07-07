@@ -8,8 +8,8 @@ An expression is any line of code that produces a value.
 
 <exercise exercisenumber="3">
 
-<checkquiz question="1">
-</checkquiz>
+<multiquiz question="1">
+</multiquiz>
 
 <!-- <VJQuiz question="1">
 </VJQuiz> -->

@@ -18,8 +18,8 @@
 <vjquiz question="4">
 </vjquiz>
 
-<checkquiz question="5">
-</checkquiz>
+<multiquiz question="5">
+</multiquiz>
 
 
 </exercise>
