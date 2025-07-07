@@ -78,9 +78,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
                 {
                     showLectures && manifest.lectures.map((lecture, index) => (
-                        <>
+                        <div key={index}>
                             {/* <HLineBreak className="h-px bg-slate-700 my-2 mx-6" /> */}
-                            <div key={lecture.slug} className={`flex flex-col  transition-all duration-100 ${index === selectedLecture ? "border-l-[8px] border-blue-500 bg-white/5" : ""}`} >
+                            <div className={`flex flex-col  transition-all duration-100 ${index === selectedLecture ? "border-l-[8px] border-blue-500 bg-white/5" : ""}`} >
                                 {/* <HLineBreak className="h-px bg-slate-700" /> */}
 
                                 <div
@@ -102,7 +102,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                     ))}
                                 </div>
                             </div>
-                        </>
+                        </div>
                     ))
                 }
                 {/* <HLineBreak className="h-px bg-slate-700 my-4 mx-2" /> */}
