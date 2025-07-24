@@ -73,7 +73,7 @@ export default function JFillInTheBlank({ question, slugs, exercisenumber, cased
 
                 <div className='flex flex-col gap-2 p-2' >
                     {loadQuestion?.parsedQuestion?.code &&
-                        <CodeBox language='c' copy="false">
+                        <CodeBox language='c'>
                             {loadQuestion?.parsedQuestion?.code}
                         </CodeBox>
                     }

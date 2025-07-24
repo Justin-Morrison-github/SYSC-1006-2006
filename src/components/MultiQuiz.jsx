@@ -84,11 +84,11 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
                     questionNum={question}
                 />
 
-                <div className='flex flex-col gap-2 w-max p-2' >
+                <div className='flex flex-col gap-2 p-2 mt-2' >
                     {
                         loadQuestion.parsedQuestion?.code && (
                             <div className='my-1'>
-                                <CodeBox language='c' copy="false" className>
+                                <CodeBox language='c' className>
                                     {loadQuestion.parsedQuestion?.code}
                                 </CodeBox>
                             </div>

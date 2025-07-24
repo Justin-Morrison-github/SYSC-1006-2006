@@ -113,16 +113,16 @@ export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber
                     questionNum={question}
                 />
 
-                <div className='flex flex-col gap-2 w-max p-2' >
+                <div className='flex flex-col gap-2 p-2' >
                     {loadQuestion?.parsedQuestion?.code &&
-                        <CodeBox language='c' copy="false">
+                        <CodeBox language='c' >
                             {loadQuestion?.parsedQuestion?.code}
                         </CodeBox>
                     }
 
                     <div className={`flex flex-col gap-3 w-max ${loadQuestion?.parsedQuestion?.code ? "" : "mt-2"}`} key={animationKey}>
                         {
-                            loadQuestion?.parsedQuestion &&
+                            loadQuestion?.parsedQuestion?.options &&
                             Object.entries(loadQuestion?.parsedQuestion?.options).map(([opt, _], index) => (
                                 <Option opt={opt} index={index} key={index} />
                             ))

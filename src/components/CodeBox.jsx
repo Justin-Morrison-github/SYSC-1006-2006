@@ -3,6 +3,7 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
 SyntaxHighlighter.registerLanguage('c', c);
+import { Check, Clipboard } from 'lucide-react';
 
 const customStyle = {
     ...oneDark,
@@ -27,20 +28,23 @@ export default function CodeBox({ language, children, copy = "true" }) {
     const handleCopy = () => {
         navigator.clipboard.writeText(children).then(() => {
             setCopied(true);
-            setTimeout(() => setCopied(false), 1000); // reset after 1 sec
+            setTimeout(() => setCopied(false), 2000); // reset after 1 sec
         });
     };
     return (
         <div className="relative">
             {
                 copy === "true" && (
-                    <button className='absolute right-[10px] top-[10px] text-white px-2 py-1 rounded cursor-pointer text-sm'
+                    <button className='absolute right-[10px] top-[12px] px-2 py-1 rounded cursor-pointer  transition-colors duration-300 ease-in-out bg-transparent'
                         onClick={handleCopy}
-                        style={{
-                            background: copied ? '#4caf50' : '#555',
-                        }}
                     >
-                        {copied ? 'Copied!' : 'Copy'}
+                        <div className='text-white text-xs flex gap-1 items-center'>
+
+                            {/* <Clipboard size={16} /> */}
+                            {copied ? <Check size={16} /> : <Clipboard size={16} />}
+
+                            {copied ? 'Copied' : 'Copy'}
+                        </div>
                     </button>
                 )
             }
