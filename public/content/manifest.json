@@ -37,10 +37,6 @@
             "title": "Lecture 3",
             "topics": [
                 {
-                    "slug": "control-flow",
-                    "title": "Control Flow"
-                },
-                {
                     "slug": "conditionals",
                     "title": "Conditionals"
                 },
