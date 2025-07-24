@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { COLORS } from './MarkdownRenderer';
 import CodeBox from './CodeBox';
-import { loadLectureJson, loadExerciseJson, useJSONLoad } from './JsonUtils';
+import { useJSONLoad } from './JsonUtils';
 import Hint from './Hint';
+import { JLoadedTitle } from './Components';
+
 
 
 export default function JFillInTheBlank({ question, slugs, exercisenumber, cased = "true", onAnswerChange, children, formattitle }) {
@@ -62,17 +64,12 @@ export default function JFillInTheBlank({ question, slugs, exercisenumber, cased
             <div key={animationKey}
                 className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md ${animateClass}`}
             >
-                <div className='flex gap-4 justify-left items-center pt-2 ml-2 border-b-2 w-max text-2xl text-white'
-                    style={{ borderColor: COLORS.exercise }}>
-
-                    <div className="font-semibold">
-                        {formattitle ? `${exercisenumber}.${question}` : `${question}.`}
-                    </div>
-
-                    <div>
-                        {loadQuestion?.parsedQuestion?.question}
-                    </div>
-                </div>
+                <JLoadedTitle
+                    formattitle={formattitle}
+                    exerciseNum={exercisenumber}
+                    question={loadQuestion?.parsedQuestion?.question}
+                    questionNum={question}
+                />
 
                 <div className='flex flex-col gap-2 w-max p-2' >
                     {loadQuestion?.parsedQuestion?.code &&

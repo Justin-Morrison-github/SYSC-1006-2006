@@ -3,6 +3,7 @@ import CodeBox from './CodeBox';
 import { COLORS } from './MarkdownRenderer'
 import { useJSONLoad } from './JsonUtils';
 import Hint from './Hint';
+import { JLoadedTitle } from './Components';
 
 function indexToLetter(index) {
     if (index < 0 || index > 25) {
@@ -105,17 +106,12 @@ export default function VJQuiz({ question, onAnswerChange, slugs, exercisenumber
             <div key={animationKey}
                 className={`transition-all duration-1000 markdown-body px-4 py-2 border border-slate-500 rounded-md ${animateClass}`}
             >
-                <div className='flex gap-4 justify-left items-center pt-2 ml-2 border-b-2  w-max'
-                    style={{ borderColor: COLORS.exercise }}>
-
-                    <div className={`text-bold text-2xl`} style={{ color: "white" }}>
-                        {formattitle ? `${exercisenumber}.${question}` : `${question}.`}
-                    </div>
-
-                    <div className='text-2xl' style={{ color: "white" }}>
-                        {loadQuestion?.parsedQuestion?.question}
-                    </div>
-                </div>
+                <JLoadedTitle
+                    formattitle={formattitle}
+                    exerciseNum={exercisenumber}
+                    question={loadQuestion?.parsedQuestion?.question}
+                    questionNum={question}
+                />
 
                 <div className='flex flex-col gap-2 w-max p-2' >
                     {loadQuestion?.parsedQuestion?.code &&

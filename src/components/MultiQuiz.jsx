@@ -4,6 +4,7 @@ import { COLORS } from './MarkdownRenderer'
 import { Circle, Check, X } from "lucide-react";
 import { useJSONLoad } from './JsonUtils';
 import Hint from './Hint';
+import { JLoadedTitle } from './Components';
 
 function arraysEqual(a, b) {
     return (
@@ -76,17 +77,12 @@ export default function MultiQuiz({ question, onAnswerChange, slugs, exercisenum
                 className={`transition-all duration-1000 px-4 py-2 border border-slate-500 rounded-md 
                     ${animateClass}`}
             >
-                <div className='flex gap-4 justify-left items-center pt-2 ml-2 border-b-2 w-max mb-1 text-white'
-                    style={{ borderColor: COLORS.exercise }}>
-
-                    <div className={`text-bold text-2xl`}>
-                        {formattitle ? `${exercisenumber}.${question}` : `${question}.`}
-                    </div>
-
-                    <div className='text-2xl' >
-                        {loadQuestion.parsedQuestion?.question}
-                    </div>
-                </div>
+                <JLoadedTitle
+                    formattitle={formattitle}
+                    exerciseNum={exercisenumber}
+                    question={loadQuestion?.parsedQuestion?.question}
+                    questionNum={question}
+                />
 
                 <div className='flex flex-col gap-2 w-max p-2' >
                     {
