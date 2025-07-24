@@ -119,7 +119,7 @@
             "question": "Is this valid C?",
             "code": "int x = 1 + '2';",
             "options": {
-                "True": "Correct. The ASCII number that represents the character '2', which is 50, will be added to 1. C treats chars like ints in arthimetic operations with ints.",
+                "True": "Correct. C treats chars like ints in arthimetic operations with ints.",
                 "False": "Incorrect"
             },
             "answer": "True",
@@ -127,14 +127,29 @@
             "type": "vjquiz"
         },
         "10": {
-            "question": "",
+            "question": "Is this valid C?",
+            "code": "if (x == 1){\n  ... \n} elif (x == 2) {\n...\n} else { \n...\n}",
             "options": {
-                "A": "Incorrect. C does not support dynamic typing, you must provide the type of variables when they are declared.",
-                "B": "Correct. C is statically typed."
+                "True": "Incorrect. C does not have an 'elif' keyword. (The code highlighting knows)",
+                "False": "Correct. It should be 'else if' not 'elif'."
             },
-            "answer": "",
+            "answer": "False",
             "hint": "",
             "type": "vjquiz"
+        },
+        "11": {
+            "question": "What is the value of z?",
+            "code": "int x = 42; \nint y = 0; \nint y = (x % 6) == 0 ? (y) ? (float) 7 / 3 : 2 : 0;",
+            "answer": "2",
+            "hint": "",
+            "type": "jfillblank"
+        },
+        "12": {
+            "question": "What gets printed?",
+            "code": "int x = 2; \nswitch(x) {\n\t\tcase 1: \n\t\t\t\tprintf(\"1\");  \n\t\tcase 2:\n\t\t\t\tprintf(\"2\"); \n\t\tcase 3: \n\t\t\t\tprintf(\"3\"); \n\t\tdefault: \n\t\t\t\tprintf(\"4\"); \n}",
+            "answer": "234",
+            "hint": "",
+            "type": "jfillblank"
         }
     },
     "B": {
@@ -157,7 +172,7 @@
             "options": {},
             "answer": "161",
             "hint": "What is ASCII?",
-            "type": "fillblank"
+            "type": "jfillblank"
         },
         "3": {
             "question": "What is the output of this C code?",

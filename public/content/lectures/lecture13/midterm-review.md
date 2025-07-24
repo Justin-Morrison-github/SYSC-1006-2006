@@ -46,16 +46,17 @@ For the best learning experience, I would recomended:
 <VJQuiz question="8">
 </VJQuiz>
 
-<JQuiz question="9">
-</JQuiz>
+<VJQuiz question="9">
+</VJQuiz>
 
 <VJQuiz question="10">
 </VJQuiz>
 
-<VJQuiz question="11">
-</VJQuiz>
-<VJQuiz question="12">
-</VJQuiz>
+<JFillblank question="11">
+</JFillblank>
+
+<JFillblank question="12">
+</JFillblank>
 <VJQuiz question="13">
 </VJQuiz>
 <VJQuiz question="14">
