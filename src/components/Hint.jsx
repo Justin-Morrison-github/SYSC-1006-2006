@@ -63,10 +63,10 @@ export default function Hint({ type, hint }) {
     }
     else if (type === "fillblank") {
         return (
-            <div className=" relative inline-block w-full">
+            <div className=" relative inline-block w-full flex items-center">
                 {
                     hint && (
-                        <button className='text-white/80 text-left rounded hover:bg-slate-800 h-full w-full'
+                        <button className='text-white/80 text-left rounded hover:bg-slate-800 h-full p-1'
                             onClick={handleHintClick}
                         >
                             {giveHint ? "Hide" : "Hint"}
@@ -75,7 +75,7 @@ export default function Hint({ type, hint }) {
                 }
                 {
                     giveHint && (
-                        <div className='absolute left-full top-0 ml-[10px] text-yellow-400 w-max'>{hint}</div>
+                        <div className='ml-[10px] text-yellow-400 '>{hint}</div>
                     )
                 }
             </div>
