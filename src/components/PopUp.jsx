@@ -10,7 +10,7 @@ export default function PopUp({ color, icon, title, children, fontSize, notitle,
 
                 <div className='flex gap-2 items-center mb-2' style={{ color: color, fontSize: fontSize }} >
                     {
-                        Icon ? <Icon size={16} /> : null
+                        Icon ? <Icon size={24} /> : null
                     }
                     <strong style={{ color: color }}>{title}</strong>
                 </div>
