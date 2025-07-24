@@ -29,6 +29,7 @@ import Recurse from './Recurse';
 import FillCode from './FIllCode';
 import MultiQuiz from './MultiQuiz';
 import JFillInTheBlank from './JFillInTheBlank';
+import { OctagonAlert } from 'lucide-react';
 
 export function tailwindToHex(tailwindColor) {
     const [color, shade] = tailwindColor.split("-");
@@ -79,6 +80,8 @@ export const COLORS = {
     error: '#ef4444',
     orange: "#f97316",
     exercise: "#0ea5e9",
+    success: '#10b981', // Tailwind's emerald-500
+    note: '#a855f7', // Tailwind's purple-500
 };
 
 export default function MarkdownRenderer({ content, slugs, children }) {
@@ -127,9 +130,14 @@ export default function MarkdownRenderer({ content, slugs, children }) {
                     dropquiz: ({ children, ...props }) => (
                         <DropQuiz {...props}>{children}</DropQuiz>
                     ),
-                    warning: ({ children, title, notitle }) => {
+                    warning: ({ children, title, notitle }) => (
+                        <PopUp icon={AlertIcon} color={COLORS.warning} title={title || "Warning"} notitle={notitle}>
+                            {children}
+                        </PopUp>
+                    ),
+                    important: ({ children, title, notitle }) => {
                         return (
-                            <PopUp icon={AlertIcon} color={COLORS.warning} title={title || "Warning"} notitle={notitle}>
+                            <PopUp icon={OctagonAlert} color={COLORS.info} title={title || "Important"} notitle={notitle}>
                                 {children}
                             </PopUp>
                         )
