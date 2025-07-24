@@ -71,7 +71,7 @@ export default function JFillInTheBlank({ question, slugs, exercisenumber, cased
                     questionNum={question}
                 />
 
-                <div className='flex flex-col gap-2 w-max p-2' >
+                <div className='flex flex-col gap-2 p-2' >
                     {loadQuestion?.parsedQuestion?.code &&
                         <CodeBox language='c' copy="false">
                             {loadQuestion?.parsedQuestion?.code}
@@ -89,10 +89,11 @@ export default function JFillInTheBlank({ question, slugs, exercisenumber, cased
                         className={`w-64 markdown-body px-2 py-2 border border-slate-500 rounded-md`}
                         disabled={isCorrect}
                     />
-
-                    <div className={` w-max ${loadQuestion?.parsedQuestion?.code ? "" : "mt-2"}`}>
-                        <Hint type={"fillblank"} hint={loadQuestion?.parsedQuestion?.hint} />
-                    </div>
+                    {loadQuestion?.parsedQuestion?.hint && (
+                        <div className={`${loadQuestion?.parsedQuestion?.code ? "" : "mt-2"}`}>
+                            <Hint type={"fillblank"} hint={loadQuestion?.parsedQuestion?.hint} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
