@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 
 import Footer from '../components/Footer'
 import NavigationFooter from '../components/NavigationFooter'
+import DarkLogo from "../media/dark_logo.svg"
+
 export default function Home() {
     const [manifest, setManifest] = useState({ lectures: [], exercises: [] })
 
     useEffect(() => {
-        fetch('/content/manifest.json')
+        fetch(import.meta.env.BASE_URL + 'content/manifest.json')
             .then((res) => res.json())
             .then(setManifest)
             .catch((err) => console.error('Failed to load manifest:', err))
@@ -15,10 +17,13 @@ export default function Home() {
 
     return (
         <div className="p-8 markdown-body">
+
+            <div className='w-full flex justify-center items-center'>
+                <img src={DarkLogo} alt="Logo" className='h-[100px]' />
+            </div>
             <h1 className="text-3xl font-bold mb-6">Course Home</h1>
 
             <section className="mb-10">
-                {/* <h2 className="text-2xl font-semibold mb-4">Lectures</h2> */}
                 {manifest.lectures.map((lecture) => (
                     <div key={lecture.slug} className="mb-6">
                         <h3 className="text-xl font-semibold">{lecture.title}</h3>

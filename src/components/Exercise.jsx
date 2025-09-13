@@ -27,7 +27,7 @@ export default function Exercise({ children, exercisenumber, dropdown = true, in
 
     return (
         <div className={pop_up_style1} style={{ borderColor: color }}>
-            <div className='sticky top-12 h-12 bg-zinc-800 z-[40]' style={{ color: color, fontSize: "x-large" }} >
+            <div className='sticky top-12 h-12 bg-zinc-800 z-40' style={{ color: color, fontSize: "x-large" }} >
                 <button onClick={() => setCollapsed((prev) => !prev)} disabled={!dropdown} className='w-full'>
                     <div className='flex gap-4 items-center justify-between w-full'>
                         <div className='flex items-center gap-4'>

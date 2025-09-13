@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export async function loadLectureJson(lecture, file) {
     try {
-        const response = await fetch(`/content/lectures/${lecture}/${file}.json`);
+        const response = await fetch(import.meta.env.BASE_URL + `content/lectures/${lecture}/${file}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -17,7 +17,7 @@ export async function loadLectureJson(lecture, file) {
 
 export async function loadExerciseJson(exercise) {
     try {
-        const response = await fetch(`/content/exercises/${exercise}.json`);
+        const response = await fetch(import.meta.env.BASE_URL + `content/exercises/${exercise}.json`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

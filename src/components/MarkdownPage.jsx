@@ -37,7 +37,7 @@ export default function MarkdownPage({ type = 'lectures' }) {
     const [manifest, setManifest] = useState({ lectures: [], exercises: [] });
 
     useEffect(() => {
-        fetch('/content/manifest.json')
+        fetch(`${import.meta.env.BASE_URL}content/manifest.json`)
             .then((res) => res.json())
             .then(setManifest)
             .catch(console.error);
@@ -69,11 +69,11 @@ export default function MarkdownPage({ type = 'lectures' }) {
         let path
 
         if (type === 'exercises') {
-            path = `/content/exercises/${exerciseSlug}.md`
+            path = import.meta.env.BASE_URL + `content/exercises/${exerciseSlug}.md`
         } else if (type === 'overview') {
-            path = `/content/overview.md`
+            path = import.meta.env.BASE_URL + `content/overview.md`
         } else {
-            path = `/content/lectures/${lectureSlug}/${lectureTopicSlug}.md`
+            path = import.meta.env.BASE_URL + `content/lectures/${lectureSlug}/${lectureTopicSlug}.md`
         }
 
         fetch(path)
